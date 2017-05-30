@@ -1,5 +1,5 @@
 /*
- * opencog/attention/HebbianUpdatingAgent.h
+ * opencog/attention/FocusBoundaryUpdatingAgent.h
  *
  * Written by Roman Treutlein
  * All Rights Reserved
@@ -20,8 +20,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef _OPENCOG_HEBBIAN_UPDATING_AGENT_H
-#define _OPENCOG_HEBBIAN_UPDATING_AGENT_H
+#ifndef _OPENCOG_FOCUS_BOUNDARY_UPDATING_AGENT_H
+#define _OPENCOG_FOCUS_BOUNDARY_UPDATING_AGENT_H
 
 #include <string>
 #include <iostream>
@@ -29,9 +29,10 @@
 
 #include <opencog/util/RandGen.h>
 
-#include <opencog/atomspace/AtomSpace.h>
-#include <opencog/truthvalue/AttentionValue.h>
+#include <opencog/cogserver/server/CogServer.h>
 #include <opencog/cogserver/server/Agent.h>
+
+#include "AttentionParamQuery.h"
 
 namespace opencog
 {
@@ -41,36 +42,39 @@ namespace opencog
 
 class AttentionBank;
 /**
- * This Agent randomly picks an Atom and updates all the outgoing HebbianLinks
- *
- * This Agents is supposed to run in it's own Thread.
- *
- * XXX: If there are to few Links they get updated to oft -> fast
- * TODO: The exact way to calculate the new/target TV might be improved
+ * This agent updates the Boundary of the AttentionalFocus to equal the top 25%
+ * of the STI Range.
+ * The Boundary will never drop Below 100 STI.
+ * TODO: Implement and upper limit to the number of Atoms in the Focus.
  */
-class HebbianUpdatingAgent : public Agent
+class FocusBoundaryUpdatingAgent : public Agent
 {
 private:
     AttentionBank* _bank;
-    double targetConjunction(HandleSeq handles);
-    void updateHebbianLinks(Handle source);
+    AttentionParamQuery _atq;
+
+    double afbSize;
+    double decay;
+    AttentionValue::sti_t bottomBoundary;
+    unsigned int minAFSize, maxAFSize;
+
+    AttentionValue::sti_t get_cutoff(HandleSeq& );
 
 public:
-
     virtual const ClassInfo& classinfo() const { return info(); }
     static const ClassInfo& info() {
-        static const ClassInfo _ci("opencog::HebbianUpdatingAgent");
+        static const ClassInfo _ci("opencog::FocusBoundaryUpdatingAgent");
         return _ci;
     }
 
-    HebbianUpdatingAgent(CogServer&);
+    FocusBoundaryUpdatingAgent(CogServer&);
     virtual void run();
 
 }; // class
 
-typedef std::shared_ptr<HebbianUpdatingAgent> HebbianUpdatingAgentPtr;
+typedef std::shared_ptr<FocusBoundaryUpdatingAgent> FocusBoundaryUpdatingAgentPtr;
 
 /** @}*/
 }  // namespace
 
-#endif // _OPENCOG_HEBBIAN_UPDATING_AGENT_H
+#endif // _OPENCOG_FOCUS_BOUNDARY_UPDATING_AGENT_H
