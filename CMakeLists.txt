@@ -399,7 +399,6 @@ IF(HAVE_ATOMSPACE AND HAVE_COGUTIL)
 	SET(HAVE_ATTENTION 1)
 ENDIF(HAVE_ATOMSPACE AND HAVE_COGUTIL)
 
-ADD_SUBDIRECTORY(lib)
 ADD_SUBDIRECTORY(opencog)
 
 IF (CXXTEST_FOUND)
@@ -436,11 +435,6 @@ IF (CXXTEST_FOUND)
 	ENDIF (CMAKE_BUILD_TYPE STREQUAL "Coverage")
 ENDIF (CXXTEST_FOUND)
 
-	COMMAND cscope -b
-	WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-	COMMENT "Generating CScope database"
-)
-
 # ===================================================================
 # Packaging
 ## Architecture the package is for.
@@ -471,7 +465,6 @@ SET(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
 SET(CPACK_PACKAGE_FILE_NAME
 	"${CPACK_PACKAGE_NAME}_${CPACK_PACKAGE_VERSION}_${PACKAGE_ARCHITECTURE}")
 SET(CPACK_PACKAGING_INSTALL_PREFIX "/usr/local")
-SET(CPACK_PACKAGE_EXECUTABLES "cogserver" "The Open Cognition Framework")
 
 ## Debian specific configurations
 SET(DEPENDENCY_LIST
@@ -479,9 +472,7 @@ SET(DEPENDENCY_LIST
 	"python-dev (>= 2.7.5)"
 	"libboost-date-time-dev (>= ${MIN_BOOST})"
 	"libboost-filesystem-dev (>= ${MIN_BOOST})"
-	"libboost-program-options-dev (>= ${MIN_BOOST})"
 	"libboost-regex-dev (>= ${MIN_BOOST})"
-	"libboost-serialization-dev (>= ${MIN_BOOST})"
 	"libboost-thread-dev (>= ${MIN_BOOST})"
 	"libboost-system-dev (>= ${MIN_BOOST})"
 	"libboost-random-dev (>= ${MIN_BOOST})"
