@@ -23,9 +23,10 @@ wiki](http://wiki.opencog.org/wikihome/index.php/Building_OpenCog).
 
 Prerequisites
 -------------
-To build and run OpenCog, the packages listed below are required.
+To build and run the Attention Allocation subsystem,
+the packages listed below are required.
 With a few exceptions, most Linux distributions will provide these
-packages. Users of Ubuntu 14.04 "Trusty Tahr" may use the dependency
+packages. Users of Ubuntu may use the dependency
 installer at `/scripts/octool`.  Users of any version of Linux may
 use the Dockerfile to quickly build a container in which OpenCog will
 be built and run.
@@ -41,11 +42,6 @@ be built and run.
 > http://github.com/opencog/atomspace
 > It uses exactly the same build procedure as this package. Be sure
   to `sudo make install` at the end.
-
-###### libuuid
-> Library for generating UUID's
-> Used by various internal subsystems.
-> `sudo apt-get install uuid-dev`
 
 Building Attention Allocation
 -----------------------------
