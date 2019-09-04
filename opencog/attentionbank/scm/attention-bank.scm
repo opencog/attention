@@ -5,7 +5,12 @@
 
 (define-module (opencog attention-bank))
 
-(use-modules (opencog) (opencog oc-config))
+; oc-config contains incorrect (insane) paths.
+; (use-modules (opencog) (opencog oc-config))
+(use-modules (opencog))
+
+(define opencog-ext-path-attentionbonk "/usr/local/lib/opencog/")
+(define opencog-ext-path-attention-types "/usr/local/lib/opencog/")
 
 (load-extension (string-append opencog-ext-path-attentionbonk "libattentionbonk") "opencog_attention_init")
 ; Load the C library that calls the nameserver to load the types.
