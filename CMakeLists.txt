@@ -167,6 +167,19 @@ ELSE (ATOMSPACE_FOUND)
 	MESSAGE(FATAL_ERROR "AtomSpace missing: it is needed!")
 ENDIF (ATOMSPACE_FOUND)
 
+# ===================================================================
+# Check for existance of various required, optional packages.
+
+# CogServer
+FIND_PACKAGE(CogServer)
+IF (COGSERVER_FOUND)
+	MESSAGE(STATUS "CogServer found.")
+	ADD_DEFINITIONS(-DHAVE_COGSERVER)
+	SET(HAVE_COGSERVER 1)
+ELSE (COGSERVER_FOUND)
+	MESSAGE(FATAL_ERROR "CogServer missing: it is needed!")
+ENDIF (COGSERVER_FOUND)
+
 # ----------------------------------------------------------
 # Check for boost. We need dynamic-linked, threaded libs by default.
 SET(Boost_USE_STATIC_LIBS OFF)
@@ -395,9 +408,9 @@ SET (MAN_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/share/man")
 # ==========================================================
 # Decide what to build, based on the packages found.
 
-IF(HAVE_ATOMSPACE AND HAVE_COGUTIL)
+IF(HAVE_COGSERVER AND HAVE_ATOMSPACE AND HAVE_COGUTIL)
 	SET(HAVE_ATTENTION 1)
-ENDIF(HAVE_ATOMSPACE AND HAVE_COGUTIL)
+ENDIF(HAVE_COGSERVER AND HAVE_ATOMSPACE AND HAVE_COGUTIL)
 
 ADD_SUBDIRECTORY(opencog)
 

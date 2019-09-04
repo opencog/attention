@@ -10,7 +10,7 @@ DECLARE_GUILE_CONFIG_TARGET(SCM_CONFIG "opencog oc-config" "OPENCOG_TEST")
 #
 ADD_SUBDIRECTORY (attentionbank)
 
-IF (HAVE_SERVER)
+IF (HAVE_COGSERVER)
 	# attention builds *after* cogserver.
 	ADD_SUBDIRECTORY (attention)
-ENDIF(HAVE_SERVER)
+ENDIF(HAVE_COGSERVER)

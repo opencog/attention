@@ -1,9 +1,9 @@
 LINK_LIBRARIES (
-	server
 	attention-types
 	attention
-	${GSL_LIBRARIES}
+	${COGSERVER_LIBRARIES}
 	${ATOMSPACE_LIBRARIES}
+	${GSL_LIBRARIES}
 	${Boost_SYSTEM_LIBRARY}
 )
 
