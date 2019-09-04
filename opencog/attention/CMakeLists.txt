@@ -20,6 +20,7 @@ ADD_LIBRARY(attention SHARED
 	HebbianCreationAgent
 	HebbianUpdatingAgent
 
+	Neighbors
 	#scm/StimulationAgent
 )
 
