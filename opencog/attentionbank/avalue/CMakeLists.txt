@@ -13,7 +13,7 @@ TARGET_LINK_LIBRARIES(attentionval
 )
 
 INSTALL (TARGETS attentionval
-	EXPORT CogServerTargets
+	EXPORT AttentionBankTargets
 	DESTINATION "lib${LIB_DIR_SUFFIX}/opencog"
 )
 
