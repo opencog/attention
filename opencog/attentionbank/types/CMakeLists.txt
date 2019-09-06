@@ -26,6 +26,7 @@ TARGET_LINK_LIBRARIES(attention-types
 )
 
 INSTALL (TARGETS attention-types
+	EXPORT AttentionBankTargets
 	LIBRARY DESTINATION "lib${LIB_DIR_SUFFIX}/opencog"
 )
 

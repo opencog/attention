@@ -1,0 +1,14 @@
+@PACKAGE_INIT@
+
+include("@CMAKE_INSTALL_PREFIX@/lib/cmake/AttentionBank/AttentionBankTargets.cmake")
+
+set(ATTENTIONBANK_LIBRARIES
+	attentionbonk
+	attentionval
+	attention-types
+)
+
+set(ATTENTIONBANK_DATA_DIR "@CMAKE_INSTALL_PREFIX@/share/opencog")
+set(ATTENTIONBANK_INCLUDE_DIR "@CMAKE_INSTALL_PREFIX@/include/")
+set(ATTENTIONBANK_VERSION "@SEMANTIC_VERSION@")
+set(ATTENTIONBANK_FOUND 1)

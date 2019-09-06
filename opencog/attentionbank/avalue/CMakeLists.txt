@@ -12,7 +12,8 @@ TARGET_LINK_LIBRARIES(attentionval
 	${COGUTIL_LIBRARY}
 )
 
-INSTALL (TARGETS attentionval EXPORT AtomSpaceTargets
+INSTALL (TARGETS attentionval
+	EXPORT CogServerTargets
 	DESTINATION "lib${LIB_DIR_SUFFIX}/opencog"
 )
 

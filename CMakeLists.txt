@@ -412,6 +412,7 @@ IF(HAVE_COGSERVER AND HAVE_ATOMSPACE AND HAVE_COGUTIL)
 	SET(HAVE_ATTENTION 1)
 ENDIF(HAVE_COGSERVER AND HAVE_ATOMSPACE AND HAVE_COGUTIL)
 
+ADD_SUBDIRECTORY(lib)
 ADD_SUBDIRECTORY(opencog)
 
 IF (CXXTEST_FOUND)
@@ -484,8 +485,6 @@ SET(DEPENDENCY_LIST
 	"guile-2.2-dev (>= 2.2.2)"
 	"python-dev (>= 2.7.5)"
 	"libboost-date-time-dev (>= ${MIN_BOOST})"
-	"libboost-filesystem-dev (>= ${MIN_BOOST})"
-	"libboost-regex-dev (>= ${MIN_BOOST})"
 	"libboost-thread-dev (>= ${MIN_BOOST})"
 	"libboost-system-dev (>= ${MIN_BOOST})"
 	"libboost-random-dev (>= ${MIN_BOOST})"
