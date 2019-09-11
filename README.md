@@ -43,6 +43,13 @@ be built and run.
 > It uses exactly the same build procedure as this package. Be sure
   to `sudo make install` at the end.
 
+###### cogserver
+> OpenCog CogServer Network Server.
+> http://github.com/opencog/cogserver
+> It uses exactly the same build procedure as this package. Be sure
+  to `sudo make install` at the end.
+
+
 Building Attention Allocation
 -----------------------------
 Perform the following steps at the shell prompt:
