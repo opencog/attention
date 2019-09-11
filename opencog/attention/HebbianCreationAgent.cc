@@ -27,7 +27,6 @@
 #include <opencog/atoms/truthvalue/IndefiniteTruthValue.h>
 #include <opencog/atoms/truthvalue/SimpleTruthValue.h>
 #include <opencog/attentionbank/types/atom_types.h>
-#include <opencog/neighbors/Neighbors.h>
 
 #include <opencog/atomspace/AtomSpace.h>
 #include <opencog/attentionbank/bank/AttentionBank.h>
@@ -35,6 +34,7 @@
 
 #include "AttentionUtils.h"
 #include "HebbianCreationAgent.h"
+#include "Neighbors.h"
 
 #ifdef DEBUG
 #undef DEBUG

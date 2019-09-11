@@ -1,11 +1,11 @@
 
 #include <opencog/atoms/atom_types/NameServer.h>
-#include <opencog/neighbors/Neighbors.h>
 #include <opencog/atoms/base/Link.h>
 #include <opencog/guile/SchemeEval.h>
 #include <opencog/util/Config.h>
 
 #include "AttentionParamQuery.h"
+#include "Neighbors.h"
 
 using namespace opencog;
 

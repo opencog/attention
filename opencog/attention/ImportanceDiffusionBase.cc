@@ -30,8 +30,6 @@
 #include <opencog/util/mt19937ar.h>
 #include <opencog/util/platform.h>
 
-#include <opencog/neighbors/FollowLink.h>
-#include <opencog/neighbors/Neighbors.h>
 #include <opencog/atoms/base/Link.h>
 
 #include <opencog/atomspace/AtomSpace.h>
@@ -42,6 +40,7 @@
 #include "ImportanceDiffusionBase.h"
 #include "AttentionStat.h"
 #include "AttentionUtils.h"
+#include "Neighbors.h"
 
 #define DEBUG
 #define _unused(x) ((void)x)
