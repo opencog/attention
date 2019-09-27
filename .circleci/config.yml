@@ -3,7 +3,7 @@ version: 2.0
 jobs:
   attention
     docker:
-      - image: opencog/attention-deps
+      - image: opencog/opencog-deps
         user: root
         environment:
           CCACHE_DIR: /ws/ccache
@@ -82,7 +82,7 @@ jobs:
 
   package: #Place holder
     docker:
-      - image: opencog/attention-deps
+      - image: opencog/opencog-deps
         user: root
     working_directory: /ws/opencog
     steps:
