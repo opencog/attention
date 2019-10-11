@@ -416,6 +416,12 @@ ADD_SUBDIRECTORY(lib)
 ADD_SUBDIRECTORY(opencog)
 ADD_SUBDIRECTORY(examples EXCLUDE_FROM_ALL)
 
+ADD_CUSTOM_TARGET(uninstall
+	COMMAND bash -c "cat install_manifest.txt | xargs rm -f"
+	VERBATIM
+	COMMENT "Uninstalling AttentionBank ..."
+)
+
 IF (CXXTEST_FOUND)
 	ADD_CUSTOM_TARGET(tests)
 	ADD_SUBDIRECTORY(tests EXCLUDE_FROM_ALL)
