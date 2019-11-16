@@ -30,6 +30,8 @@
 #include <opencog/guile/SchemeEval.h>
 #include <opencog/attention/Neighbors.h>
 #include <opencog/cogserver/server/CogServer.h>
+#include <opencog/cogserver/modules/agents/AgentsModule.h>
+#include <opencog/cogserver/modules/agents/Scheduler.h>
 #include <opencog/attentionbank/bank/AttentionBank.h>
 #include <opencog/attentionbank/types/atom_types.h>
 #include <opencog/attentionbank/avalue/AttentionValue.h>
@@ -52,6 +54,7 @@ class ImportanceDiffusionUTest : public CxxTest::TestSuite
         std::shared_ptr<DummyImportanceDiffusionAgent>   _dmyid_agentptr;
         AtomSpace* _as;
         CogServer* _cogserver;
+        Scheduler* _scheduler;
         std::shared_ptr<AttentionParamQuery> _atq;
         std::shared_ptr<SchemeEval> _eval;
         Factory<DummyImportanceDiffusionAgent, Agent> DIdCreationFactory;
@@ -100,13 +103,19 @@ ImportanceDiffusionUTest::ImportanceDiffusionUTest() {
     _eval = make_shared<SchemeEval>(_as);
     _atq = make_shared<AttentionParamQuery>(_as);
 
-    _cogserver->registerAgent(DummyImportanceDiffusionAgent::info().id,&DIdCreationFactory);
+    _cogserver->loadModules();
+    config().set("MODULES", "libagents.so");
+    _cogserver->loadModules();
+    Module* amod = _cogserver->getModule("opencog::AgentsModule");
+    AgentsModule* agmod = (AgentsModule*) amod;
+    _scheduler = &agmod->get_scheduler();
+
+    _scheduler->registerAgent(DummyImportanceDiffusionAgent::info().id,&DIdCreationFactory);
     AgentPtr afidptr =
-        _cogserver->createAgent(DummyImportanceDiffusionAgent::info().id,false);
+        _scheduler->createAgent(DummyImportanceDiffusionAgent::info().id,false);
 
     _dmyid_agentptr = std::dynamic_pointer_cast<DummyImportanceDiffusionAgent>(afidptr);
 
-    _cogserver->loadModules();
 }
 
 ImportanceDiffusionUTest::~ImportanceDiffusionUTest(){

@@ -30,6 +30,8 @@
 
 #include <opencog/attention/Neighbors.h>
 #include <opencog/cogserver/server/CogServer.h>
+#include <opencog/cogserver/modules/agents/AgentsModule.h>
+#include <opencog/cogserver/modules/agents/Scheduler.h>
 #include <opencog/attentionbank/bank/AttentionBank.h>
 #include <opencog/attentionbank/types/atom_types.h>
 #include <opencog/attentionbank/avalue/AttentionValue.h>
@@ -48,33 +50,40 @@ class HebbianCreationModuleUTest : public CxxTest::TestSuite
 private:
     AtomSpace* as;
     AgentPtr _hebbiancreation_agentptr;
+    CogServer* _cogserver;
+    Scheduler* _scheduler;
 
 public:
     void tearDown()
     {
-        cogserver().stop();
+        _cogserver->stop();
     }
 
     void InitCogServer()
     {
-        config().set("MODULES", "opencog/attention/libattention.so"); 
-        
+        _cogserver = &cogserver();
+        config().set("MODULES", "opencog/attention/libattention.so");
+        _cogserver->loadModules();
+        config().set("MODULES", "libagents.so");
+        Module* amod = _cogserver->getModule("opencog::AgentsModule");
+        AgentsModule* agmod = (AgentsModule*) amod;
+        _scheduler = &agmod->get_scheduler();
+
         AttentionParamQuery _atq(&cogserver().getAtomSpace());
         _atq.load_default_values(); // Load default ECAN param values into AS
 
         Factory<HebbianCreationAgent, Agent> hebbianCreationFactory;
-        cogserver().registerAgent(HebbianCreationAgent::info().id,&hebbianCreationFactory);
+        _scheduler->registerAgent(HebbianCreationAgent::info().id,&hebbianCreationFactory);
         _hebbiancreation_agentptr =
-            cogserver().createAgent(HebbianCreationAgent::info().id,false);
-        
-        cogserver().loadModules();
+            _scheduler->createAgent(HebbianCreationAgent::info().id,false);
+
         this->as = &cogserver().getAtomSpace();
     }
 
     void testHebbianLinkCreation(void)
     {
         InitCogServer();
-        cogserver().startAgent(_hebbiancreation_agentptr,true,"hca");
+        _scheduler->startAgent(_hebbiancreation_agentptr,true,"hca");
 
 
          AttentionBank& ab = attentionbank(&cogserver().getAtomSpace());
@@ -151,7 +160,7 @@ public:
         for (Handle node : attentionalFocus) {
             HandleSeq existingAsSource = get_target_neighbors(node, ASYMMETRIC_HEBBIAN_LINK);
             HandleSeq existingAsTarget = get_source_neighbors(node, ASYMMETRIC_HEBBIAN_LINK);
-            
+
             std::cout << node->to_string() << std::endl;
             //TS_ASSERT(existingAsSource.size() == 3);
            // TS_ASSERT(existingAsTarget.size() == 3);
@@ -164,6 +173,6 @@ public:
         std::cout << "count(HebLinks) = " << hebbianLinks.size() << "\n";
         TS_ASSERT(hebbianLinks.size() == 12);
 
-        cogserver().stopAgent(_hebbiancreation_agentptr);
+        _scheduler->stopAgent(_hebbiancreation_agentptr);
     }
 };
