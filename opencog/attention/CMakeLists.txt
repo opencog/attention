@@ -24,9 +24,14 @@ ADD_LIBRARY(attention SHARED
 	#scm/StimulationAgent
 )
 
+TARGET_LINK_DIRECTORIES(attention
+	PUBLIC ${CMAKE_INSTALL_PREFIX}/lib${LIB_DIR_SUFFIX}/opencog/modules
+)
+
 TARGET_LINK_LIBRARIES(attention
 	attention-types
 	attentionbonk
+	agents
 	${COGSERVER_LIBRARIES}
 	${ATOMSPACE_LIBRARIES})
 
