@@ -28,6 +28,7 @@
 #include <opencog/cogserver/server/Factory.h>
 #include <opencog/cogserver/server/Module.h>
 #include <opencog/cogserver/server/CogServer.h>
+#include <opencog/cogserver/modules/agents/Scheduler.h>
 
 #include "AFImportanceDiffusionAgent.h"
 #include "AFRentCollectionAgent.h"
@@ -49,6 +50,7 @@ class AttentionModule : public Module
 {
 
 private:
+    Scheduler* _scheduler;
 
     Factory<AFImportanceDiffusionAgent, Agent>  afImportanceFactory;
     Factory<WAImportanceDiffusionAgent, Agent>  waImportanceFactory;

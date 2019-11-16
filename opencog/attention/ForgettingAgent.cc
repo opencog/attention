@@ -26,7 +26,7 @@
 
 #include <opencog/atomspace/AtomSpace.h>
 #include <opencog/atoms/base/Link.h>
-#include <opencog/cogserver/server/Agent.h>
+#include <opencog/cogserver/modules/agents/Agent.h>
 #include <opencog/cogserver/server/CogServer.h>
 #include <opencog/cogserver/server/Factory.h>
 #include <opencog/attentionbank/types/atom_types.h>
