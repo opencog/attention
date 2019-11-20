@@ -15,6 +15,16 @@
 MESSAGE("Found CMake version ${CMAKE_VERSION}")
 CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
 
+# Well, that's weird. We need `CMP0037 OLD` as otherwise, cmake
+# version 3.10.2 complains :
+#   The target name "test" is reserved or not valid for certain CMake features,
+#      such as generator expressions, and may result in undefined behavior.
+# However, cmake version 3.13.4 does not complain about the "test"
+# target, and everything just works fine ...
+IF (NOT CMAKE_VERSION VERSION_GREATER 3.13)
+	CMAKE_POLICY(SET CMP0037 OLD)
+ENDIF (NOT CMAKE_VERSION VERSION_GREATER 3.13)
+
 PROJECT(opencog)
 
 # ----------------------------------------------------------
