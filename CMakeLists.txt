@@ -10,8 +10,10 @@
 #
 
 # We need at least version 3.13 to get TARGET_LINK_DIRECTORIES
+# Argh. circleci does not have that version.
+# Apparently, version 3.5 is what Ubuntu Xenial has, so ask for that.
 MESSAGE("Found CMake version ${CMAKE_VERSION}")
-CMAKE_MINIMUM_REQUIRED(VERSION 3.13)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
 
 PROJECT(opencog)
 
