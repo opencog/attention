@@ -1,5 +1,5 @@
 
-ADD_LIBRARY (attentionbonk SHARED
+ADD_LIBRARY (attentionbank SHARED
 	AFImplicator.cc
 	AtomBins.cc
 	AttentionalFocusCB.cc
@@ -10,7 +10,7 @@ ADD_LIBRARY (attentionbonk SHARED
 	StochasticImportanceDiffusion.cc
 )
 
-TARGET_LINK_LIBRARIES(attentionbonk
+TARGET_LINK_LIBRARIES(attentionbank
 	attentionval
 	query-engine
 	execution
@@ -20,13 +20,13 @@ TARGET_LINK_LIBRARIES(attentionbonk
 	${COGUTIL_LIBRARY}
 )
 
-ADD_GUILE_EXTENSION(SCM_CONFIG attentionbonk "opencog-ext-path-attentionbonk")
+ADD_GUILE_EXTENSION(SCM_CONFIG attentionbank "opencog-ext-path-attentionbank")
 
 IF(CMAKE_BUILD_TYPE MATCHES DEBUG)
     ADD_DEFINITIONS(-DECAN_EXPERIMENT)
 ENDIF(CMAKE_BUILD_TYPE MATCHES DEBUG)
 
-INSTALL (TARGETS attentionbonk
+INSTALL (TARGETS attentionbank
 	EXPORT AttentionBankTargets
 	DESTINATION "lib${LIB_DIR_SUFFIX}/opencog"
 )

@@ -7,7 +7,7 @@
 
 (use-modules (opencog) (opencog attention-config))
 
-(load-extension (string-append opencog-ext-path-attentionbonk "libattentionbonk") "opencog_attention_init")
+(load-extension (string-append opencog-ext-path-attentionbank "libattentionbank") "opencog_attention_init")
 ; Load the C library that calls the nameserver to load the types.
 (load-extension (string-append opencog-ext-path-attention-types "libattention-types") "attention_types_init")
 

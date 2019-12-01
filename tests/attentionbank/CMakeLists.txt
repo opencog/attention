@@ -1,6 +1,6 @@
 LINK_LIBRARIES(
 	attentionval
-	attentionbonk
+	attentionbank
 	${ATOMSPACE_LIBRARIES}
 )
 

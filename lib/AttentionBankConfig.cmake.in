@@ -3,7 +3,7 @@
 include("@CMAKE_INSTALL_PREFIX@/lib/cmake/AttentionBank/AttentionBankTargets.cmake")
 
 set(ATTENTIONBANK_LIBRARIES
-	attentionbonk
+	attentionbank
 	attentionval
 	attention-types
 )

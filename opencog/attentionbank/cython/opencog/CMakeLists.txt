@@ -28,7 +28,7 @@ ADD_LIBRARY(bank_cython SHARED
 )
 
 TARGET_LINK_LIBRARIES(bank_cython
-	attentionbonk
+	attentionbank
 	${ATOMSPACE_LIBRARIES}
 	${COGUTIL_LIBRARY}
 	${PYTHON_LIBRARIES}
