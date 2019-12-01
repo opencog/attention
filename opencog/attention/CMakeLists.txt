@@ -6,12 +6,15 @@ ADD_DEFINITIONS(-DNDEBUG)
 
 # AttentionModule
 ADD_LIBRARY(attention SHARED
+	AttentionModule
 	AttentionParamQuery
  	AttentionUtils
-	AttentionModule
+	Neighbors
+
 	ImportanceDiffusionBase
 	AFImportanceDiffusionAgent
 	WAImportanceDiffusionAgent
+
 	RentCollectionBaseAgent
 	AFRentCollectionAgent
 	WARentCollectionAgent
@@ -20,7 +23,6 @@ ADD_LIBRARY(attention SHARED
 	HebbianCreationAgent
 	HebbianUpdatingAgent
 
-	Neighbors
 	#scm/StimulationAgent
 )
 
