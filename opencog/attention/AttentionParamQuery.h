@@ -79,27 +79,27 @@ namespace opencog
             HandleSeq get_params(void);
 
             template<class T>
-                void set_param(const std::string& param_name,T value)
+                void set_param(const std::string& param_name, T value)
                 {
                     Handle param = _as->add_node(CONCEPT_NODE, param_name);
                     Handle member_link = _as->add_link(MEMBER_LINK, 
-                            HandleSeq{param, parent_param});
+                            param, parent_param);
 
                     std::ostringstream sstream;
                     sstream << value;
                     Handle hvalue  = _as->add_node(NUMBER_NODE, 
                                                    sstream.str());
 
-                    _as->add_link(STATE_LINK, HandleSeq{param, hvalue});
+                    _as->add_link(STATE_LINK, param, hvalue);
                 }
 
-            void set_param(const std::string& param_name,Handle hvalue)
+            void set_param(const std::string& param_name, const Handle& hvalue)
             {
                 Handle param = _as->add_node(CONCEPT_NODE, param_name);
                 Handle member_link = _as->add_link(MEMBER_LINK,
-                        HandleSeq{param, parent_param});
+                        param, parent_param);
 
-                _as->add_link(STATE_LINK, HandleSeq{param, hvalue});
+                _as->add_link(STATE_LINK, param, hvalue);
             }
 
     }; // class
