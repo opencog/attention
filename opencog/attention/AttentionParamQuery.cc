@@ -1,12 +1,9 @@
 
-#include <opencog/atoms/atom_types/NameServer.h>
 #include <opencog/atoms/base/Link.h>
 #include <opencog/atoms/core/StateLink.h>
 #include <opencog/guile/SchemeEval.h>
-#include <opencog/util/Config.h>
 
 #include "AttentionParamQuery.h"
-#include "Neighbors.h"
 
 using namespace opencog;
 
@@ -76,7 +73,6 @@ std::string AttentionParamQuery::get_param_value(const std::string& param)
         throw RuntimeException(TRACE_INFO,
              "There is no parameter %s", param.c_str());
 
-    // This should always return one atom.
     Handle hvalue = StateLink::get_state(hparam);
     if (nullptr == hvalue)
         throw RuntimeException(TRACE_INFO,
@@ -91,21 +87,18 @@ std::string AttentionParamQuery::get_param_value(const std::string& param)
 
 Handle AttentionParamQuery::get_param_hvalue(const std::string& param)
 {
-    Handle hparam = _as->add_node(CONCEPT_NODE, param);
-    // This should always return one atom.
-    HandleSeq hsvalue = get_target_neighbors(hparam, STATE_LINK);
-    if(hsvalue.empty()){
-        throw RuntimeException(TRACE_INFO, "Parameter %s has no associated value.",
-                param.c_str());
-    }
+    Handle hparam = _as->get_node(CONCEPT_NODE, param);
+    if (nullptr == hparam)
+        throw RuntimeException(TRACE_INFO,
+             "There is no parameter %s", param.c_str());
 
-    return  hsvalue[0];
+    return StateLink::get_state(hparam);
 }
 
 HandleSeq AttentionParamQuery::get_params(void)
 {
     Handle rh = HandleCast(hget_params->execute(_as));
-    if (NULL != rh) rh = _as->add_atom(rh);
+    if (rh) rh = _as->add_atom(rh);
 
     return rh->getOutgoingSet();
 }
