@@ -27,8 +27,8 @@
 
 using namespace opencog;
 
-AttentionValueOfLink::AttentionValueOfLink(const HandleSeq& oset, Type t)
-	: ValueOfLink(oset, t)
+AttentionValueOfLink::AttentionValueOfLink(const HandleSeq&& oset, Type t)
+	: ValueOfLink(std::move(oset), t)
 {
 	if (not nameserver().isA(t, ATTENTION_VALUE_OF_LINK))
 	{
@@ -67,8 +67,8 @@ ValuePtr AttentionValueOfLink::execute(AtomSpace* as, bool silent)
 
 // =============================================================
 
-StiOfLink::StiOfLink(const HandleSeq& oset, Type t)
-	: ValueOfLink(oset, t)
+StiOfLink::StiOfLink(const HandleSeq&& oset, Type t)
+	: ValueOfLink(std::move(oset), t)
 {
 	if (not nameserver().isA(t, STI_OF_LINK))
 	{
@@ -101,8 +101,8 @@ ValuePtr StiOfLink::execute(AtomSpace* as, bool silent)
 
 // =============================================================
 
-LtiOfLink::LtiOfLink(const HandleSeq& oset, Type t)
-	: ValueOfLink(oset, t)
+LtiOfLink::LtiOfLink(const HandleSeq&& oset, Type t)
+	: ValueOfLink(std::move(oset), t)
 {
 	if (not nameserver().isA(t, LTI_OF_LINK))
 	{
