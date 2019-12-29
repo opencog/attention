@@ -38,19 +38,6 @@ AttentionValueOfLink::AttentionValueOfLink(const HandleSeq& oset, Type t)
 	}
 }
 
-AttentionValueOfLink::AttentionValueOfLink(const Link &l)
-	: ValueOfLink(l)
-{
-	// Type must be as expected
-	Type tscope = l.get_type();
-	if (not nameserver().isA(tscope, ATTENTION_VALUE_OF_LINK))
-	{
-		const std::string& tname = nameserver().getTypeName(tscope);
-		throw InvalidParamException(TRACE_INFO,
-			"Expecting an AttentionValueOfLink, got %s", tname.c_str());
-	}
-}
-
 // ---------------------------------------------------------------
 
 static const Handle& attn_key(void)
@@ -91,19 +78,6 @@ StiOfLink::StiOfLink(const HandleSeq& oset, Type t)
 	}
 }
 
-StiOfLink::StiOfLink(const Link &l)
-	: ValueOfLink(l)
-{
-	// Type must be as expected
-	Type tscope = l.get_type();
-	if (not nameserver().isA(tscope, STI_OF_LINK))
-	{
-		const std::string& tname = nameserver().getTypeName(tscope);
-		throw InvalidParamException(TRACE_INFO,
-			"Expecting an StiOfLink, got %s", tname.c_str());
-	}
-}
-
 // ---------------------------------------------------------------
 
 /// When executed, this will return the Strengths of all of the
@@ -133,19 +107,6 @@ LtiOfLink::LtiOfLink(const HandleSeq& oset, Type t)
 	if (not nameserver().isA(t, LTI_OF_LINK))
 	{
 		const std::string& tname = nameserver().getTypeName(t);
-		throw InvalidParamException(TRACE_INFO,
-			"Expecting an LtiOfLink, got %s", tname.c_str());
-	}
-}
-
-LtiOfLink::LtiOfLink(const Link &l)
-	: ValueOfLink(l)
-{
-	// Type must be as expected
-	Type tscope = l.get_type();
-	if (not nameserver().isA(tscope, LTI_OF_LINK))
-	{
-		const std::string& tname = nameserver().getTypeName(tscope);
 		throw InvalidParamException(TRACE_INFO,
 			"Expecting an LtiOfLink, got %s", tname.c_str());
 	}

@@ -38,7 +38,8 @@ class AttentionValueOfLink : public ValueOfLink
 {
 public:
 	AttentionValueOfLink(const HandleSeq&, Type=ATTENTION_VALUE_OF_LINK);
-	AttentionValueOfLink(const Link &l);
+	AttentionValueOfLink(const AttentionValueOfLink&) = delete;
+	AttentionValueOfLink& operator=(const AttentionValueOfLink&) = delete;
 
 	// Return a pointer to the extracted value.
 	virtual ValuePtr execute(AtomSpace*, bool);
@@ -63,7 +64,8 @@ class StiOfLink : public ValueOfLink
 {
 public:
 	StiOfLink(const HandleSeq&, Type=STRENGTH_OF_LINK);
-	StiOfLink(const Link &l);
+	StiOfLink(const StiOfLink&) = delete;
+	StiOfLink& operator=(const StiOfLink&) = delete;
 
 	// Return a pointer to the extracted value.
 	virtual ValuePtr execute(AtomSpace*, bool);
@@ -88,7 +90,8 @@ class LtiOfLink : public ValueOfLink
 {
 public:
 	LtiOfLink(const HandleSeq&, Type=CONFIDENCE_OF_LINK);
-	LtiOfLink(const Link &l);
+	LtiOfLink(const LtiOfLink&) = delete;
+	LtiOfLink& operator=(const LtiOfLink&) = delete;
 
 	// Return a pointer to the extracted value.
 	virtual ValuePtr execute(AtomSpace*, bool);
