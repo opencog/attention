@@ -48,9 +48,9 @@ bool AttentionalFocusCB::link_match(const PatternTermPtr& ptm, const Handle& lso
 		attentionbank(_as).atom_is_in_AF(lsoln);
 }
 
-IncomingSet AttentionalFocusCB::get_incoming_set(const Handle& h)
+IncomingSet AttentionalFocusCB::get_incoming_set(const Handle& h, Type t)
 {
-	IncomingSet incoming_set = h->getIncomingSet();
+	IncomingSet incoming_set = h->getIncomingSetByType(t, _as);
 
 	// Discard the part of the incoming set that is below the
 	// AF boundary.  The PM will look only at those links that

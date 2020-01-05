@@ -39,7 +39,7 @@ public:
 	bool link_match(const PatternTermPtr&, const Handle&);
 
 	// Only get incoming sets that are in the attentional focus
-	IncomingSet get_incoming_set(const Handle&);
+	IncomingSet get_incoming_set(const Handle&, Type);
 };
 
 } //namespace opencog
