@@ -72,7 +72,7 @@ class AttentionBank
     /** AV changes */
     void AVChanged(const Handle&, const AttentionValuePtr&, const AttentionValuePtr&);
 
-    AtomPtrSignal* _remove_signal;
+    AtomSignal* _remove_signal;
     int _remove_connection;
 
     /**
