@@ -100,7 +100,7 @@ void ForgettingAgent::forget()
                 // TODO: do recursive remove if neighbours are not very important
                 IncomingSet iset = atomsVector[i]->getIncomingSet(_as);
                 recursive = true;
-                for (const LinkPtr& h : iset)
+                for (const Handle& h : iset)
                 {
                     if (h->get_type() != ASYMMETRIC_HEBBIAN_LINK) {
                         recursive = false;

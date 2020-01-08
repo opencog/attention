@@ -101,7 +101,7 @@ void HebbianUpdatingAgent::updateHebbianLinks(Handle source)
 
     IncomingSet links = source->getIncomingSetByType(ASYMMETRIC_HEBBIAN_LINK);
 
-    for (const LinkPtr& h : links) {
+    for (const Handle& h : links) {
         if (source != h->getOutgoingAtom(0))
             continue;
         const HandleSeq& outgoing = h->getOutgoingSet();
