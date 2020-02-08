@@ -59,7 +59,7 @@ class AttentionBank
     unsigned int maxAFSize;
     struct compare_sti_less {
         bool operator()(const std::pair<Handle, AttentionValuePtr>& h1,
-                        const std::pair<Handle, AttentionValuePtr>& h2)
+                        const std::pair<Handle, AttentionValuePtr>& h2) const
         {
             return  (h1.second)->getSTI() < (h2.second)->getSTI();
         }
