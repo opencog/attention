@@ -11,6 +11,11 @@
 // The AttentionValue
 ATTENTION_VALUE <- FLOAT_VALUE
 
+// Return the indicated value on the indicated atom.
+ATTENTION_VALUE_OF_LINK <- VALUE_OF_LINK
+STI_OF_LINK <- VALUE_OF_LINK
+LTI_OF_LINK <- VALUE_OF_LINK
+
 // Attention allocation atoms:
 //
 HEBBIAN_LINK <- LINK
