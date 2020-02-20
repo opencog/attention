@@ -105,15 +105,9 @@ HandleSeq createSimpleGraph(AtomSpace* atomSpace, const char* baseName)
     setSTI(bank, h3, AV3_STI);
     setLTI(bank, h3, AV3_LTI);
 
-    HandleSeq outgoing1;
-    outgoing1.push_back(h2);
-    outgoing1.push_back(h3);
-    Handle l1 = atomSpace->add_link(LIST_LINK, outgoing1);
+    Handle l1 = atomSpace->add_link(LIST_LINK, h2, h3);
     l1->setTruthValue(tv1);
-    HandleSeq outgoing2;
-    outgoing2.push_back(h1);
-    outgoing2.push_back(l1);
-    Handle l2 = atomSpace->add_link(EVALUATION_LINK, outgoing2);
+    Handle l2 = atomSpace->add_link(EVALUATION_LINK, h1, l1);
     l2->setTruthValue(tv2);
 
     HandleSeq testAtoms;
@@ -162,14 +156,16 @@ Handle addRealAtom(AtomSpace& as, AtomPtr atom,
     if (atom->is_node()) {
         result = as.get_handle(atom->get_type(), atom->get_name());
         if (result == Handle::UNDEFINED) {
-            Handle h = as.add_node(atom->get_type(), atom->get_name());
+            Handle h = as.add_node(atom->get_type(),
+                                  std::move(std::string(atom->get_name())));
             h->setTruthValue(newTV);
             return h;
         }
     } else {
         result = as.get_handle(atom->get_type(), atom->getOutgoingSet());
         if (result == Handle::UNDEFINED) {
-            Handle h = as.add_link(atom->get_type(), atom->getOutgoingSet());
+            Handle h = as.add_link(atom->get_type(),
+                             std::move(HandleSeq(atom->getOutgoingSet())));
             h->setTruthValue(newTV);
             return h;
         }
@@ -348,7 +344,7 @@ public:
             HandleSeq temp(2);
             temp[0] = h[i];
             temp[1] = h[4];
-            FU[i] = atomSpace->add_link(SUBSET_LINK, temp);
+            FU[i] = atomSpace->add_link(SUBSET_LINK, std::move(temp));
             FU[i]->setTruthValue(SimpleTruthValue::createTV(ForceUser[i], 0.99f));
         }
         logger().debug("ForceUser links created\n");
@@ -359,7 +355,7 @@ public:
         for (int i = 0; i < 4; i++) {
             out[i].push_back(h[i]);
             out[i].push_back(h[5]);
-            H[i] = atomSpace->add_link(INHERITANCE_LINK, out[i]);
+            H[i] = atomSpace->add_link(INHERITANCE_LINK, std::move(HandleSeq(out[i])));
             H[i]->setTruthValue(SimpleTruthValue::createTV(Human[i], 0.99f));
         }
         logger().debug("Human links created\n");
@@ -505,7 +501,7 @@ public:
             }
         }
 
-        Handle h = as.add_link(*head_type_ptr, handles);
+        Handle h = as.add_link(*head_type_ptr, std::move(handles));
         h->setTruthValue(tvn);
         return h;
     }
@@ -685,16 +681,10 @@ public:
 
         TruthValuePtr tv1 = SimpleTruthValue::createTV(0.001f, 0.00001f);
         TruthValuePtr tv2 = SimpleTruthValue::createTV(0.001f, 0.00001f);
-        HandleSeq outgoing1;
-        outgoing1.push_back(h2);
-        outgoing1.push_back(h3);
-        Handle l1 = atomSpace->add_link(LIST_LINK, outgoing1);
+        Handle l1 = atomSpace->add_link(LIST_LINK, h2, h3);
         l1->setTruthValue(tv1);
 
-        HandleSeq outgoing2;
-        outgoing2.push_back(h1);
-        outgoing2.push_back(l1);
-        Handle l2 = atomSpace->add_link(EVALUATION_LINK, outgoing2);
+        Handle l2 = atomSpace->add_link(EVALUATION_LINK, h1, l1);
         l2->setTruthValue(tv2);
 
         // Check that isNode returns false
@@ -703,12 +693,12 @@ public:
         TS_ASSERT(isLink(l2));
 
         TruthValuePtr tv1_ = SimpleTruthValue::createTV(0.002f, 0.00002f);
-        Handle l1_ = atomSpace->add_link(LIST_LINK, outgoing1);
+        Handle l1_ = atomSpace->add_link(LIST_LINK, h2, h3);
         tv1->merge(tv1_);
         l1_->setTruthValue(tv1);
 
         TruthValuePtr tv2_ = SimpleTruthValue::createTV(0.1f, 0.0f);
-        Handle l2_ = atomSpace->add_link(EVALUATION_LINK, outgoing2);
+        Handle l2_ = atomSpace->add_link(EVALUATION_LINK, h1, l1);
         tv2->merge(tv2_);
         l2_->setTruthValue(tv2);
 
@@ -736,12 +726,12 @@ public:
         HandleSeq outgoing1;
         outgoing1.push_back(h2);
         outgoing1.push_back(h3);
-        Handle l1 = atomSpace->add_link(SET_LINK, outgoing1);
+        Handle l1 = atomSpace->add_link(SET_LINK, std::move(outgoing1));
         l1->setTruthValue(tv1);
         HandleSeq outgoing2;
         outgoing2.push_back(h1);
         outgoing2.push_back(l1);
-        Handle l2 = atomSpace->add_link(EVALUATION_LINK, outgoing2);
+        Handle l2 = atomSpace->add_link(EVALUATION_LINK, std::move(outgoing2));
         l2->setTruthValue(tv2);
     }
 
@@ -750,7 +740,7 @@ public:
         HandleSeq emptyOutgoing;
         Handle result = atomSpace.get_handle(LIST_LINK, emptyOutgoing);
         TS_ASSERT(result == Handle::UNDEFINED);
-        atomSpace.add_link(LIST_LINK, emptyOutgoing);
+        atomSpace.add_link(LIST_LINK);
         result = atomSpace.get_handle(LIST_LINK, emptyOutgoing);
         TS_ASSERT(result != Handle::UNDEFINED);
     }

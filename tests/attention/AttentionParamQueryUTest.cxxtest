@@ -93,8 +93,8 @@ void AttentionParamQueryUTest::test_get_params()
     // creates 5 more, so that there are 27 in total now.
     // This number subject to change.
     TS_ASSERT_EQUALS(27, hseq.size());
-    for(const std::string& pname : params){
-        Handle h = as.add_node(CONCEPT_NODE, pname);
+    for (std::string pname : params) {
+        Handle h = as.add_node(CONCEPT_NODE, std::move(pname));
         auto it = std::find(hseq.begin(), hseq.end(), h);
         TS_ASSERT_DIFFERS(hseq.end(), it);
     }
