@@ -50,7 +50,7 @@ Handle af_bindlink(AtomSpace* as, const Handle& hbindlink)
 	HandleSeq hs;
 	for (const auto& v: impl.get_result_set())
 		hs.push_back(HandleCast(v));
-	Handle rewr(createUnorderedLink(hs, SET_LINK));
+	Handle rewr(createUnorderedLink(std::move(hs), SET_LINK));
 	return as->add_atom(rewr);
 }
 
