@@ -66,9 +66,9 @@ AttentionParamQuery::AttentionParamQuery(AtomSpace* as): _as(as)
     hget_params = _as->add_link(BIND_LINK, HandleSeq{member, var});
 }
 
-std::string AttentionParamQuery::get_param_value(const std::string& param)
+std::string AttentionParamQuery::get_param_value(std::string param)
 {
-    Handle hparam = _as->get_node(CONCEPT_NODE, param);
+    Handle hparam = _as->get_node(CONCEPT_NODE, std::move(param));
     if (nullptr == hparam)
         throw RuntimeException(TRACE_INFO,
              "There is no parameter %s", param.c_str());
@@ -85,9 +85,9 @@ std::string AttentionParamQuery::get_param_value(const std::string& param)
     return hvalue->get_name();
 }
 
-Handle AttentionParamQuery::get_param_hvalue(const std::string& param)
+Handle AttentionParamQuery::get_param_hvalue(std::string param)
 {
-    Handle hparam = _as->get_node(CONCEPT_NODE, param);
+    Handle hparam = _as->get_node(CONCEPT_NODE, std::move(param));
     if (nullptr == hparam)
         throw RuntimeException(TRACE_INFO,
              "There is no parameter %s", param.c_str());

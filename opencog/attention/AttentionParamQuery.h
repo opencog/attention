@@ -74,14 +74,15 @@ namespace opencog
             AttentionParamQuery(AtomSpace* as);
 
             void load_default_values(void);
-            std::string get_param_value(const std::string& param);
-            Handle get_param_hvalue(const std::string& param);
+            std::string get_param_value(std::string param);
+            Handle get_param_hvalue(std::string param);
             HandleSeq get_params(void);
 
             template<class T>
-                void set_param(const std::string& param_name, T value)
+                void set_param(std::string param_name, T value)
                 {
-                    Handle param = _as->add_node(CONCEPT_NODE, param_name);
+                    Handle param = _as->add_node(CONCEPT_NODE,
+                                                 std::move(param_name));
                     Handle member_link = _as->add_link(MEMBER_LINK, 
                             param, parent_param);
 
@@ -93,9 +94,10 @@ namespace opencog
                     _as->add_link(STATE_LINK, param, hvalue);
                 }
 
-            void set_param(const std::string& param_name, const Handle& hvalue)
+            void set_param(std::string param_name, const Handle& hvalue)
             {
-                Handle param = _as->add_node(CONCEPT_NODE, param_name);
+                Handle param = _as->add_node(CONCEPT_NODE,
+                                             std::move(param_name));
                 Handle member_link = _as->add_link(MEMBER_LINK,
                         param, parent_param);
 
