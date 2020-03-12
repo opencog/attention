@@ -52,5 +52,5 @@ INSTALL (FILES
 	AttentionStat.h
 	ForgettingAgent.h
 	HebbianUpdatingAgent.h
-	DESTINATION "include/${PROJECT_NAME}/attention"
+	DESTINATION "include/opencog/${PROJECT_NAME}/"
 )

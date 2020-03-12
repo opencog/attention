@@ -32,7 +32,7 @@ INSTALL (TARGETS attention-types
 
 INSTALL (FILES
 	${CMAKE_CURRENT_BINARY_DIR}/atom_types.h
-	DESTINATION "include/${PROJECT_NAME}/attentionbank/types"
+	DESTINATION "include/opencog/attentionbank/types"
 )
 
 # Install the auto-generated atom types as well
