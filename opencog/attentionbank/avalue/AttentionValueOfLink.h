@@ -23,7 +23,7 @@
 #ifndef _OPENCOG_ATTENTION_VALUE_OF_LINK_H
 #define _OPENCOG_ATTENTION_VALUE_OF_LINK_H
 
-#include <opencog/atoms/core/ValueOfLink.h>
+#include <opencog/atoms/flow/ValueOfLink.h>
 #include <opencog/attentionbank/types/atom_types.h>
 
 namespace opencog
