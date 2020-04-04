@@ -353,6 +353,11 @@ SET(CPACK_DEBIAN_PACKAGE_HOMEPAGE "http://opencog.org")
 INCLUDE(CPack)
 
 # ===================================================================
+# Documentation.
+FIND_PACKAGE(Doxygen)
+# ADD_SUBDIRECTORY(doc EXCLUDE_FROM_ALL)
+
+# ===================================================================
 # Show a summary of what we found, what we will do.
 
 SUMMARY_ADD("Attention" "Agents for attention allocation dynamics" HAVE_ATTENTION)
