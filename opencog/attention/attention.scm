@@ -14,7 +14,7 @@
 
   Set ecan to filter atoms of TYPE-SYMOBLS.
 "
-  (if (not (null? type-symbols))
+  (if (not (nil? type-symbols))
     (StateLink
       SPREADING_FILTER
       (MemberLink
