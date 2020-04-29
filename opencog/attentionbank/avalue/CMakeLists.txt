@@ -9,6 +9,7 @@ ADD_LIBRARY (attentionval SHARED
 TARGET_LINK_LIBRARIES(attentionval
 	attention-types
 	value
+	${ATOMSPACE_LIBRARIES}
 	${COGUTIL_LIBRARY}
 )
 
