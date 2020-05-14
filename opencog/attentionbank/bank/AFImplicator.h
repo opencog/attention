@@ -55,6 +55,11 @@ class AFImplicator:
 		InitiateSearchCB::set_pattern(vars, pat);
 		DefaultPatternMatchCB::set_pattern(vars, pat);
 	}
+
+	virtual PatternMatchCallback* clone(void)
+	{
+		return new AFImplicator(*this);
+	}
 };
 
 Handle af_bindlink(AtomSpace*, const Handle&);
