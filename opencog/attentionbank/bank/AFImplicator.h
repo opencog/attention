@@ -1,5 +1,5 @@
 /*
- * AFImplicatorMixin.h
+ * AFImplicator.h
  *
  * Copyright (C) 2009, 2014 Linas Vepstas
  *
