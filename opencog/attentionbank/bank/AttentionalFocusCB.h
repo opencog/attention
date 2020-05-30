@@ -23,11 +23,11 @@
 #ifndef _ATTENTIONAL_FOCUS_CB_H
 #define _ATTENTIONAL_FOCUS_CB_H
 
-#include <opencog/query/DefaultPatternMatchCB.h>
+#include <opencog/query/TermMatchMixin.h>
 
 namespace opencog {
 
-class AttentionalFocusCB: public virtual DefaultPatternMatchCB
+class AttentionalFocusCB: public TermMatchMixin
 {
 public:
 	AttentionalFocusCB(AtomSpace*);

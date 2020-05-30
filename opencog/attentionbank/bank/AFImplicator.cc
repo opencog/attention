@@ -42,7 +42,7 @@ Handle af_bindlink(AtomSpace* as, const Handle& hbindlink)
 	// Now perform the search.
 	AFImplicator impl(as);
 	impl.implicand = bl->get_implicand();
-	bl->satisfy(impl);
+	impl.satisfy(bl);
 
 	// The result_list contains a list of the grounded expressions.
 	// (The order of the list has no significance, so it's really a set.)

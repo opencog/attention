@@ -25,11 +25,9 @@
 #define _OPENCOG_AF_IMPLICATOR_H
 
 #include <opencog/attentionbank/bank/AttentionalFocusCB.h>
-#include <opencog/query/DefaultPatternMatchCB.h>
-#include <opencog/query/Implicator.h>
-#include <opencog/query/InitiateSearchCB.h>
-#include <opencog/query/PatternMatchCallback.h>
-
+#include <opencog/query/RewriteMixin.h>
+#include <opencog/query/InitiateSearchMixin.h>
+#include <opencog/query/SatisfyMixin.h>
 
 namespace opencog {
 
@@ -37,23 +35,23 @@ namespace opencog {
  * Attentional Focus specific PatternMatchCallback implementation
  */
 class AFImplicator:
-	public virtual Implicator,
-	public virtual InitiateSearchCB,
-	public virtual AttentionalFocusCB
+	public AttentionalFocusCB,
+	public InitiateSearchMixin,
+	public RewriteMixin,
+	public SatisfyMixin
 {
 	public:
 		AFImplicator(AtomSpace* asp) :
-			Implicator(asp),
-			InitiateSearchCB(asp),
-			DefaultPatternMatchCB(asp),
-			AttentionalFocusCB(asp)
+			AttentionalFocusCB(asp),
+			InitiateSearchMixin(asp),
+			RewriteMixin(asp)
 		{}
 
 	virtual void set_pattern(const Variables& vars,
 	                         const Pattern& pat)
 	{
-		InitiateSearchCB::set_pattern(vars, pat);
-		DefaultPatternMatchCB::set_pattern(vars, pat);
+		InitiateSearchMixin::set_pattern(vars, pat);
+		AttentionalFocusCB::set_pattern(vars, pat);
 	}
 };
 

@@ -33,7 +33,7 @@ using namespace opencog;
 // over a simpler, more modular design.
 
 AttentionalFocusCB::AttentionalFocusCB(AtomSpace* as) :
-	DefaultPatternMatchCB(as)
+	TermMatchMixin(as)
 {
 }
 
@@ -44,7 +44,7 @@ bool AttentionalFocusCB::node_match(const Handle& node1, const Handle& node2)
 
 bool AttentionalFocusCB::link_match(const PatternTermPtr& ptm, const Handle& lsoln)
 {
-	return DefaultPatternMatchCB::link_match(ptm, lsoln) and
+	return TermMatchMixin::link_match(ptm, lsoln) and
 		attentionbank(_as).atom_is_in_AF(lsoln);
 }
 
