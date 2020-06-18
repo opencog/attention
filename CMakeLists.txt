@@ -112,7 +112,7 @@ SET(Boost_USE_MULTITHREADED ON)
 SET(MIN_BOOST 1.46)
 
 # Required boost packages
-FIND_PACKAGE(Boost ${MIN_BOOST} COMPONENTS date_time filesystem program_options regex serialization system thread REQUIRED)
+FIND_PACKAGE(Boost ${MIN_BOOST} REQUIRED)
 
 IF(Boost_FOUND)
 	SET(Boost_FOUND_SAVE 1)
@@ -128,8 +128,8 @@ ENDIF(105100 EQUAL ${Boost_VERSION})
 MESSAGE(STATUS "Boost version ${Boost_VERSION} found.")
 
 # Optional boost packages; can build without these.
-FIND_PACKAGE(Boost ${MIN_BOOST} COMPONENTS python program_options QUIET)
-FIND_PACKAGE(Boost ${MIN_BOOST} COMPONENTS math_c99 QUIET)
+# Is this actually needed?
+FIND_PACKAGE(Boost ${MIN_BOOST} COMPONENTS python QUIET)
 
 # Arghhh. Except cmake is treating above as required, not optional. #$%**&
 IF(Boost_FOUND_SAVE)
@@ -337,10 +337,7 @@ SET(CPACK_PACKAGING_INSTALL_PREFIX "/usr/local")
 SET(DEPENDENCY_LIST
 	"guile-2.2-dev (>= 2.2.2)"
 	"python3-dev (>= 3.6.7)"
-	"libboost-date-time-dev (>= ${MIN_BOOST})"
-	"libboost-thread-dev (>= ${MIN_BOOST})"
-	"libboost-system-dev (>= ${MIN_BOOST})"
-	"libboost-random-dev (>= ${MIN_BOOST})"
+	"libboost-dev (>= ${MIN_BOOST})"
 	"libstdc++6 (>= 4.7)"
 	"libcogutil-dev (>= 2.0.2)"
 	"atomspace-dev (>= 5.0.3)"
