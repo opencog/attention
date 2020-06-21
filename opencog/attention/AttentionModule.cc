@@ -34,7 +34,7 @@
 using namespace opencog;
 using namespace std::placeholders;
 
-concurrent_queue<Handle> opencog::newAtomsInAV;
+concurrent_queue<Handle> AttentionModule::newAtomsInAV;
 
 DECLARE_MODULE(AttentionModule)
 

@@ -32,6 +32,7 @@
 #include <opencog/attentionbank/bank/AttentionBank.h>
 #include <opencog/cogserver/server/CogServer.h>
 
+#include "AttentionModule.h"
 #include "AttentionUtils.h"
 #include "HebbianCreationAgent.h"
 #include "Neighbors.h"
@@ -59,10 +60,10 @@ void HebbianCreationAgent::run()
                                (AttentionParamQuery::heb_local_farlink_ratio));
 
     Handle source;
-    if(newAtomsInAV.is_empty()){
+    if (AttentionModule::newAtomsInAV.is_empty())
       return;
-    }
-    newAtomsInAV.pop(source);
+
+    AttentionModule::newAtomsInAV.pop(source);
     if (source == Handle::UNDEFINED)
         return;
 

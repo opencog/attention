@@ -38,8 +38,6 @@ namespace opencog
  *  @{
  */
 
-extern concurrent_queue<Handle> newAtomsInAV;
-
 /**
  * This agent is resposible for Creating new HebbianLinks and making sure
  * that the maximum number of Links per Atom is not exceeded.

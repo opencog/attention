@@ -25,6 +25,7 @@
 #ifndef _OPENCOG_EXPERIMENTAL_ATTENTION_MODULE_H
 #define _OPENCOG_EXPERIMENTAL_ATTENTION_MODULE_H
 
+#include <opencog/util/concurrent_queue.h>
 #include <opencog/cogserver/server/Factory.h>
 #include <opencog/cogserver/server/Module.h>
 #include <opencog/cogserver/server/CogServer.h>
@@ -106,6 +107,7 @@ public:
 
 
     static inline const char* id();
+    static concurrent_queue<Handle> newAtomsInAV;
 
     AttentionModule(CogServer&);
     virtual ~AttentionModule();
