@@ -1,0 +1,12 @@
+INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR})
+
+ADD_LIBRARY(attentionexperiment SHARED
+	ExperimentSetupModule
+	SentenceGenStimulateAgent
+)
+
+TARGET_LINK_LIBRARIES(attentionexperiment
+	${ATTENTION_LIBRARIES}
+	${COGSERVER_LIBRARIES}
+	${ATOMSPACE_LIBRARIES}
+)
