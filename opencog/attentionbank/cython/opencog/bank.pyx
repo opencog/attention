@@ -1,7 +1,7 @@
 from libcpp.vector cimport vector
 
 from cython.operator cimport dereference as deref, preincrement as inc
-from atomspace cimport AtomSpace, Atom
+from opencog.atomspace cimport AtomSpace, Atom
 
 
 cdef vector_to_set(vector[cHandle] handle_vector):
