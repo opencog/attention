@@ -1,7 +1,9 @@
 Attention Allocation
 =====================
 
-[![CircleCI](https://circleci.com/gh/opencog/opencog.svg?style=svg)](https://circleci.com/gh/opencog/attention)
+opencog | singnet
+------- | -------
+[![CircleCI](https://circleci.com/gh/opencog/attention.svg?style=svg)](https://circleci.com/gh/opencog/attention) | [![CircleCI](https://circleci.com/gh/singnet/attention.svg?style=svg)](https://circleci.com/gh/singnet/attention)
 
 Attention Allocation is an OpenCog subsystem meant to control the
 application of processing and memory resources to specific tasks.
