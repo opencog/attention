@@ -108,6 +108,27 @@ jobs:
           name: Install Attention
           command: cd /ws/attention/build && make -j2 install && ldconfig
       - run:
+          name: Checkout CogServer
+          command: |
+            git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/cogserver /ws/cogserver
+            mkdir -p /ws/cogserver/build
+            cd /ws/cogserver/build && cmake .. && make -j2 && make -j2 install
+            ldconfig
+      - run:
+          name: Checkout URE
+          command: |
+            git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/ure /ws/ure
+            mkdir -p /ws/ure/build
+            cd /ws/ure/build && cmake .. && make -j2 && make -j2 install
+            ldconfig
+      - run:
+          name: Checkout PLN
+          command: |
+            git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/pln /ws/pln
+            mkdir -p /ws/pln/build
+            cd /ws/pln/build && cmake .. && make -j2 && make -j2 install
+            ldconfig
+      - run:
           name: Checkout OpenCog
           command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/opencog .
       - run:
