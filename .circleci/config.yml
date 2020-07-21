@@ -7,7 +7,7 @@ jobs:
         user: root
         environment:
           CCACHE_DIR: /ws/ccache
-    working_directory: /ws/opencog
+    working_directory: /ws/attention
     steps:
       - attach_workspace:
           at: /ws
@@ -59,9 +59,7 @@ jobs:
             mkdir -p /ws/cogserver/build
             cd /ws/cogserver/build && cmake .. && make -j2 && make -j2 install
             ldconfig
-      - run:
-          name: Checkout Attention
-          command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/attention /ws/opencog
+      - checkout
       - run:
           name: CMake Configure
           command: mkdir build && cd build && cmake ..
@@ -84,6 +82,9 @@ jobs:
       - persist_to_workspace:
           root: /ws/
           paths:
+            - cogutil
+            - atomspace
+            - cogserver
             - attention
             - ccache
 
