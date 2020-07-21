@@ -53,6 +53,13 @@ jobs:
           paths:
             - /ws/atomspace/opencog/haskell/.stack-work
       - run:
+          name: Install CogServer
+          command: |
+            git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/cogserver /ws/cogserver
+            mkdir -p /ws/cogserver/build
+            cd /ws/cogserver/build && cmake .. && make -j2 && make -j2 install
+            ldconfig
+      - run:
           name: Checkout Attention
           command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/attention /ws/opencog
       - run:
@@ -105,24 +112,20 @@ jobs:
           name: Install AtomSpace
           command: cd /ws/atomspace/build && make -j2 install && ldconfig
       - run:
+          name: Install CogServer
+          command: cd /ws/cogserver/build && make -j2 install && ldconfig
+      - run:
           name: Install Attention
           command: cd /ws/attention/build && make -j2 install && ldconfig
       - run:
-          name: Checkout CogServer
-          command: |
-            git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/cogserver /ws/cogserver
-            mkdir -p /ws/cogserver/build
-            cd /ws/cogserver/build && cmake .. && make -j2 && make -j2 install
-            ldconfig
-      - run:
-          name: Checkout URE
+          name: Install URE
           command: |
             git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/ure /ws/ure
             mkdir -p /ws/ure/build
             cd /ws/ure/build && cmake .. && make -j2 && make -j2 install
             ldconfig
       - run:
-          name: Checkout PLN
+          name: Install PLN
           command: |
             git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/pln /ws/pln
             mkdir -p /ws/pln/build
