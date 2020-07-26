@@ -23,7 +23,6 @@
 
 #include <cmath>
 #include <algorithm>
-#include <boost/range/adaptor/reversed.hpp>
 
 #include <opencog/util/functional.h>
 
