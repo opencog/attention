@@ -1,10 +1,7 @@
 LINK_LIBRARIES (
 	attention-types
 	attention
-	${COGSERVER_LIBRARIES}
-	${ATOMSPACE_LIBRARIES}
-	${GSL_LIBRARIES}
-	${Boost_SYSTEM_LIBRARY}
+	${ATOMSPACE_LIBRARY}
 )
 
 ADD_CXXTEST(AttentionParamQueryUTest)
