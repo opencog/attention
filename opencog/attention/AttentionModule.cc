@@ -72,7 +72,7 @@ AttentionModule::~AttentionModule()
 void AttentionModule::init()
 {
     std::string save = config().get("MODULES");
-    config().set("MODULES", "agents/libagents.so");
+    config().set("MODULES", "libagents.so");
     _cogserver.loadModules();
     config().set("MODULES", save);
     Module* amod = _cogserver.getModule("opencog::AgentsModule");
