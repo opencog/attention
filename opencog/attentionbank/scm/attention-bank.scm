@@ -26,14 +26,30 @@
 "
  cog-new-av STI LTI VLTI
     Create an AttentionValue with the given STI, LTI and VLTI.
-    Unlike atoms, attention values are ephemeral: they are
-    automatically garbage-collected when no longer needed.
+
+    This is a backwards-compatibility synonym for the more
+    direct expression (AttentionValue STI LTI VLTI).
 
     Example:
         ; Create a new attention value:
         guile> (cog-new-av 10 20 0)
 "
-	(cog-new-value 'AttentionValue STI LTI VLTI)
+	(AttentionValue STI LTI VLTI)
+)
+
+(define-public (av STI LTI VLTI)
+"
+ av STI LTI VLTI
+    Create an AttentionValue with the given STI, LTI and VLTI.
+
+    This is a backwards-compatibility synonym for the more
+    direct expression (AttentionValue STI LTI VLTI).
+
+    Example:
+        ; Create a new attention value:
+        guile> (av 10 20 0)
+"
+	(AttentionValue STI LTI VLTI)
 )
 
 (define-public (cog-av? EXP)
@@ -43,7 +59,7 @@
 
     Example:
        ; Define a simple attention value
-       guile> (define x (cog-new-av 15 25 0))
+       guile> (define x (AttentionValue 15 25 0))
        guile> (define y (+ 2 2))
        guile> (cog-av? x)
        #t
@@ -59,7 +75,7 @@
     Convert an attention value AV to an association list (alist).
 
     Example:
-       guile> (define x (cog-new-av 99 88 0))
+       guile> (define x (AttentionValue 99 88 0))
        guile> (cog-av->alist x)
        ((sti . 99) (lti . 88) (vlti . 0))
 "
@@ -80,7 +96,7 @@
        ; Define a node
        guile> (define x
                  (cog-new-node 'ConceptNode \"abc\"
-                    (cog-new-av 11 21 0)))
+                    (AttentionValue 11 21 0)))
        guile> (cog-av x)
        (av 11 21 0)
        guile> (cog-av? (cog-av x))
@@ -97,7 +113,7 @@
        guile> (define x (cog-new-node 'ConceptNode \"def\"))
        guile> (cog-av x)
        (av 0 0 0)
-       guile> (cog-set-av! x (cog-new-av 44 55 1))
+       guile> (cog-set-av! x (AttentionValue 44 55 1))
        (ConceptNode \"def\" (av 44 55 1))
        guile> (cog-av x)
        (av 44 55 1)
@@ -112,7 +128,7 @@
        ; Define a node
        guile> (define x
                  (cog-new-node 'ConceptNode \"abc\"
-                    (cog-new-av 11 21 0)))
+                    (AttentionValue 11 21 0)))
        guile> (cog-inc-vlti! x)
        (ConceptNode \"abc\" (av 11 21 1))
        guile> (cog-av x)
@@ -132,7 +148,7 @@
        ; Define a node
        guile> (define x
                  (cog-new-node 'ConceptNode \"abc\"
-                    (cog-new-av 11 21 1)))
+                    (AttentionValue 11 21 1)))
        guile> (cog-dec-vlti! x)
        (ConceptNode \"abc\" (av 11 21 0))
        guile> (cog-av x)
@@ -146,7 +162,7 @@
 "
     (let ((av-alist (cog-av->alist (cog-av atom))))
         (cog-set-av! atom
-            (av sti (assoc-ref av-alist 'lti) (assoc-ref av-alist 'vlti)))
+            (AttentionValue sti (assoc-ref av-alist 'lti) (assoc-ref av-alist 'vlti)))
     )
 )
 
@@ -156,7 +172,7 @@
 "
     (let ((av-alist (cog-av->alist (cog-av atom))))
         (cog-set-av! atom
-            (av (assoc-ref av-alist 'sti) lti (assoc-ref av-alist 'vlti)))
+            (AttentionValue (assoc-ref av-alist 'sti) lti (assoc-ref av-alist 'vlti)))
     )
 )
 
@@ -166,7 +182,7 @@
 "
     (let ((av-alist (cog-av->alist (cog-av atom))))
         (cog-set-av! atom
-            (av (assoc-ref av-alist 'sti) (assoc-ref av-alist 'lti) vlti))
+            (AttentionValue (assoc-ref av-alist 'sti) (assoc-ref av-alist 'lti) vlti))
     )
 )
 
