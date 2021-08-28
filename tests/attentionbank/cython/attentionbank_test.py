@@ -9,8 +9,9 @@ from opencog.bank import AttentionBank, af_bindlink
 class AttentionBankTest(TestCase):
 
     def setUp(self):
+        initialize_opencog()
         self.atomspace = AtomSpace()
-        initialize_opencog(self.atomspace)
+        set_default_atomspace(self.atomspace)
 
     def tearDown(self):
         finalize_opencog()
