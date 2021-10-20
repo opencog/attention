@@ -221,7 +221,7 @@ getHandleSetFiltered(AtomSpace* as, OutputIterator result,
              HandlePredicate& compare)
 {
     HandleSeq hs;
-    as->get_handles_by_type(back_inserter(hs), type, subclass);
+    as->get_handles_by_type(hs, type, subclass);
 
     return std::copy_if(hs.begin(), hs.end(), result,
         [&](Handle h)->bool { return compare(h); } );
@@ -271,7 +271,7 @@ getSortedHandleSet(AtomSpace* as,
     // get the handle set as a vector and sort it.
     HandleSeq hs;
 
-    as->get_handles_by_type(back_inserter(hs), type, subclass);
+    as->get_handles_by_type(hs, type, subclass);
     std::sort(hs.begin(), hs.end(), compareAtom<AtomComparator>(compare));
     return std::copy(hs.begin(), hs.end(), result);
 }
@@ -393,11 +393,11 @@ public:
         TS_ASSERT(atomSpace->get_num_links() == 8);
 
         HandleSeq hsn;
-        atomSpace->get_handles_by_type(back_inserter(hsn), NODE, true);
+        atomSpace->get_handles_by_type(hsn, NODE, true);
         TS_ASSERT(hsn.size() == NUM_NODES);
 
         HandleSeq hsl;
-        atomSpace->get_handles_by_type(back_inserter(hsl), LINK, true);
+        atomSpace->get_handles_by_type(hsl, LINK, true);
         TS_ASSERT(hsl.size() == 8);
 
         // Test getHandleSet
@@ -419,11 +419,11 @@ public:
             //}
 
             HandleSeq nodes;
-            atomSpace->get_handles_by_type(back_inserter(nodes), NODE, true);
+            atomSpace->get_handles_by_type(nodes, NODE, true);
             logger().debug("Get nodes by type %d checked", vhIdx);
 
             HandleSeq links;
-            atomSpace->get_handles_by_type(back_inserter(links), LINK, true);
+            atomSpace->get_handles_by_type(links, LINK, true);
             logger().debug("Get links by type %d checked", vhIdx);
 
             HandleSeq all;
@@ -447,30 +447,30 @@ public:
             // Note: SUBSET_LINK is a subType of INHERITANCE_LINK
             // No its not.
             HandleSeq links;
-            atomSpace->get_handles_by_type(back_inserter(links), LINK, true);
+            atomSpace->get_handles_by_type(links, LINK, true);
             logger().debug("1) links.size() = %d Expected = %d\n", (int) links.size(), (vhIdx == 0 ? 8 : 2));
             TS_ASSERT(links.size() == 8);
             links.clear();
-            atomSpace->get_handles_by_type(back_inserter(links), LINK, false);
+            atomSpace->get_handles_by_type(links, LINK, false);
             //logger().debug("2) links.size() = %d\n", links.size());
             TS_ASSERT(links.size() == 0);
             HandleSeq allInhLinks;
-            atomSpace->get_handles_by_type(back_inserter(allInhLinks), INHERITANCE_LINK, true);
+            atomSpace->get_handles_by_type(allInhLinks, INHERITANCE_LINK, true);
             //logger().info("4) allInhLinks.size() = %d (vhIdx: %d)\n", allInhLinks.size(), vhIdx);
             //for (unsigned int x = 0; x < allInhLinks.size(); ++x) {
             //    logger().info("allInhLinks[x]: %s\n", allInhLinks[x]->to_string().c_str());
             //}
             // TS_ASSERT(allInhLinks.size() == 8);
             HandleSeq justInhLinks;
-            atomSpace->get_handles_by_type(back_inserter(justInhLinks), INHERITANCE_LINK, false);
+            atomSpace->get_handles_by_type(justInhLinks, INHERITANCE_LINK, false);
             //logger().info("5) justInhLinks.size() = %d (vhIdx: %d)\n", justInhLinks.size(), vhIdx);
             TS_ASSERT(justInhLinks.size() == 4);
             HandleSeq partOfLinks;
-            atomSpace->get_handles_by_type(back_inserter(partOfLinks), SUBSET_LINK, true);
+            atomSpace->get_handles_by_type(partOfLinks, SUBSET_LINK, true);
             //logger().debug("5) partOfLinks.size() = %d\n", partOfLinks.size());
             TS_ASSERT(partOfLinks.size() == 4);
             partOfLinks.clear();
-            atomSpace->get_handles_by_type(back_inserter(partOfLinks), SUBSET_LINK, false);
+            atomSpace->get_handles_by_type(partOfLinks, SUBSET_LINK, false);
             //logger().debug("6) partOfLinks.size() = %d\n", partOfLinks.size());
             TS_ASSERT(partOfLinks.size() == 4);
         }
@@ -545,13 +545,13 @@ public:
                               );
 
         HandleSeq links;
-        atomSpace->get_handles_by_type(back_inserter(links), LINK, true);
+        atomSpace->get_handles_by_type(links, LINK, true);
         logger().debug("links.size() = %d\n", (int) links.size());
         TS_ASSERT(links.size() == 0);
         Handle evalLink = addAtom(*atomSpace, *tr, TruthValue::DEFAULT_TV());
         TS_ASSERT(evalLink != Handle::UNDEFINED);
         links.clear();
-        atomSpace->get_handles_by_type(back_inserter(links), LINK, true);
+        atomSpace->get_handles_by_type(links, LINK, true);
         logger().debug("links.size() = %d\n", (int) links.size());
         TS_ASSERT(links.size() == 2);
         delete tr;
