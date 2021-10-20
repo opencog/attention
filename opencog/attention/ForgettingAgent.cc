@@ -69,12 +69,11 @@ void ForgettingAgent::run()
 void ForgettingAgent::forget()
 {
     HandleSeq atomsVector;
-    std::back_insert_iterator<HandleSeq> output2(atomsVector);
     int count = 0;
     int removalAmount;
     bool recursive;
 
-    _as->get_handles_by_type(output2, ATOM, true);
+    _as->get_handles_by_type(atomsVector, ATOM, true);
 
     int asize = atomsVector.size();
     if (asize < (maxSize + accDivSize)) {
