@@ -169,7 +169,7 @@ public:
         // Confirm that only n*(n-1) = 12 AsymmetricHebbianLinks were formed,
         // indicating that none incorrectly include "slimy" nor the dummy atoms
         HandleSeq hebbianLinks;
-        as->get_handles_by_type(back_inserter(hebbianLinks), ASYMMETRIC_HEBBIAN_LINK);
+        as->get_handles_by_type(hebbianLinks, ASYMMETRIC_HEBBIAN_LINK);
         std::cout << "count(HebLinks) = " << hebbianLinks.size() << "\n";
         TS_ASSERT(hebbianLinks.size() == 12);
 
