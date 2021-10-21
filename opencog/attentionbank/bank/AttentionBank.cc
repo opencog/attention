@@ -246,7 +246,8 @@ AttentionBank& opencog::attentionbank(AtomSpace* pasp)
     static std::mutex art;
     std::unique_lock<std::mutex> graffiti(art);
 
-    AtomSpacePtr asp(AtomSpaceCast(pasp));
+    AtomSpacePtr asp;
+    if (pasp) asp = AtomSpaceCast(pasp);
     if (_as != asp and _instance) {
         delete _instance;
         _instance = nullptr;
