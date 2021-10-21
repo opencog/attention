@@ -43,7 +43,7 @@ class BankAsyncUTest :  public CxxTest::TestSuite
 {
 private:
 
-    AtomSpace* atomSpace;
+    AtomSpacePtr atomSpace;
     AttentionBank* ab;
 
     // Counters must be atomic; we are incrementing them inside threads
@@ -66,14 +66,13 @@ public:
 
     void setUp()
     {
-        atomSpace = new AtomSpace();
-        ab = &attentionbank(atomSpace);
+        atomSpace = createAtomSpace();
+        ab = &attentionbank(atomSpace.get());
     }
 
     void tearDown()
     {
         attentionbank(nullptr);
-        delete atomSpace;
     }
 
     // =================================================================

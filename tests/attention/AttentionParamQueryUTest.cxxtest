@@ -34,7 +34,7 @@ using namespace opencog;
 class AttentionParamQueryUTest : public CxxTest::TestSuite
 {
 private:
-AtomSpace as;
+AtomSpacePtr as;
 AttentionParamQuery _atq;
 
 std::vector<std::string> params = {"param-1", "param-2", "param-3", "param-4"
@@ -42,14 +42,15 @@ std::vector<std::string> params = {"param-1", "param-2", "param-3", "param-4"
 Handle h1,h2,h3,h4, hvalue;
 
 public:
-AttentionParamQueryUTest(): _atq(&as){
+AttentionParamQueryUTest(): as(createAtomSpace()), _atq(as.get())
+{
     _atq.set_param(params[0], true);
     _atq.set_param(params[1], 2.5f);
     _atq.set_param(params[2], 4.5);
     _atq.set_param(params[3], 2);
 
-    Handle h1 = as.add_node(TYPE_NODE, "MemberLink");
-    hvalue = as.add_link(MEMBER_LINK, h1);
+    Handle h1 = as->add_node(TYPE_NODE, "MemberLink");
+    hvalue = as->add_link(MEMBER_LINK, h1);
     _atq.set_param(params[4], hvalue);
 }
 
@@ -94,7 +95,7 @@ void AttentionParamQueryUTest::test_get_params()
     // This number subject to change.
     TS_ASSERT_EQUALS(27, hseq.size());
     for (std::string pname : params) {
-        Handle h = as.add_node(CONCEPT_NODE, std::move(pname));
+        Handle h = as->add_node(CONCEPT_NODE, std::move(pname));
         auto it = std::find(hseq.begin(), hseq.end(), h);
         TS_ASSERT_DIFFERS(hseq.end(), it);
     }

@@ -53,7 +53,7 @@ using namespace std;
 class AttentionValueUTest :  public CxxTest::TestSuite
 {
 private:
-    AtomSpace* atomSpace;
+    AtomSpacePtr atomSpace;
     AttentionBank* bank;
 
     AttentionValue::sti_t sti[NUM_AVS];
@@ -119,8 +119,8 @@ public:
     }
 
     void setUp() {
-        atomSpace = new AtomSpace();
-        bank = &attentionbank(atomSpace);
+        atomSpace = createAtomSpace();
+        bank = &attentionbank(atomSpace.get());
 
         avs[0] = AttentionValue::createAV();
         avs[1] = AttentionValue::createAV(sti[1]);
@@ -130,7 +130,6 @@ public:
 
     void tearDown() {
         attentionbank(nullptr);
-        delete atomSpace;
     }
 
     void testConstructors() {
@@ -263,7 +262,7 @@ public:
 
     // Copied from AtomSpaceUTest.cxxtest, but modified for the test
     // testComparisons
-    HandleSeq createSimpleGraph(AtomSpace* atomSpace, const char* baseName)
+    HandleSeq createSimpleGraph(AtomSpacePtr atomSpace, const char* baseName)
     {
         char buf[256];
         HandleSeq testAtoms;
