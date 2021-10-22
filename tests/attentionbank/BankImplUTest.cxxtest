@@ -78,9 +78,9 @@ bool isLink(Handle h) { return h->is_link(); }
 
 bool isNode(Handle h) { return h->is_node(); }
 
-HandleSeq createSimpleGraph(AtomSpace* atomSpace, const char* baseName)
+HandleSeq createSimpleGraph(AtomSpacePtr atomSpace, const char* baseName)
 {
-    AttentionBank* bank = &attentionbank(atomSpace);
+    AttentionBank* bank = &attentionbank(atomSpace.get());
     char buf[256];
     memset(buf, 0, 256);
     int baseNameLength = strlen(baseName);
@@ -215,7 +215,7 @@ HandleSeq filter(InputIterator begin, InputIterator end, HandlePredicate& compar
  * @endcode
  */
 template <typename OutputIterator> OutputIterator
-getHandleSetFiltered(AtomSpace* as, OutputIterator result,
+getHandleSetFiltered(AtomSpacePtr as, OutputIterator result,
              Type type,
              bool subclass,
              HandlePredicate& compare)
@@ -262,7 +262,7 @@ struct compareAtom
  * @endcode
  */
 template <typename OutputIterator, typename Compare> OutputIterator
-getSortedHandleSet(AtomSpace* as,
+getSortedHandleSet(AtomSpacePtr as,
              OutputIterator result,
              Type type,
              bool subclass,
@@ -277,10 +277,10 @@ getSortedHandleSet(AtomSpace* as,
 }
 
 template<typename InputIterator>
-HandleSeq filter_InAttentionalFocus(AtomSpace* as, InputIterator begin,
+HandleSeq filter_InAttentionalFocus(AtomSpacePtr as, InputIterator begin,
 InputIterator end)
 {
-    STIAboveThreshold sti_above(attentionbank(as).get_af_max_sti());
+    STIAboveThreshold sti_above(attentionbank(as.get()).get_af_max_sti());
     return filter(begin, end, sti_above);
 }
 
@@ -288,7 +288,7 @@ class BankImplUTest :  public CxxTest::TestSuite
 {
 private:
 
-    AtomSpace* atomSpace;
+    AtomSpacePtr atomSpace;
     AttentionBank* bank;
 
 public:
@@ -298,13 +298,12 @@ public:
     }
 
     void setUp() {
-        atomSpace = new AtomSpace();
-        bank = &attentionbank(atomSpace);
+        atomSpace = createAtomSpace();
+        bank = &attentionbank(atomSpace.get());
     }
 
     void tearDown() {
         attentionbank(nullptr);
-        delete atomSpace;
     }
 
     struct mean : public HandlePredicate
@@ -769,7 +768,7 @@ public:
      */
     void testgetSortedHandleSet()
     {
-        AtomSpace* as = new AtomSpace();
+        AtomSpacePtr as = createAtomSpace();
         HandleSeq atoms;
         logger().debug("BEGIN TEST: getSortedHandleSet");
         atoms = createSimpleGraph(as, "stim_sortedHandleSet\0");

@@ -234,25 +234,27 @@ double AttentionBank::getNormalisedZeroToOneSTI(AttentionValuePtr av,
 // This implementation is pretty hokey, and is a stop-gap until some
 // sort of more elegant way of managing the attentionbank is found.
 // One of the issues is that access via this function can be CPU-wasteful.
-AttentionBank& opencog::attentionbank(AtomSpace* asp)
+AttentionBank& opencog::attentionbank(AtomSpace* pasp)
 {
     static AttentionBank* _instance = nullptr;
-    static AtomSpace* _as = nullptr;
+    static AtomSpacePtr _as = nullptr;
 
     // Protect setting and getting against thread races.
     // This is probably not needed.
     // The map is currently not used cause no one wants it.
-    static std::map<AtomSpace*, AttentionBank*> banksy;
+    static std::map<AtomSpacePtr, AttentionBank*> banksy;
     static std::mutex art;
     std::unique_lock<std::mutex> graffiti(art);
 
+    AtomSpacePtr asp;
+    if (pasp) asp = AtomSpaceCast(pasp);
     if (_as != asp and _instance) {
         delete _instance;
         _instance = nullptr;
         _as = nullptr;
     }
     if (asp and nullptr == _instance) {
-        _instance = new AttentionBank(asp);
+        _instance = new AttentionBank(asp.get());
         _as = asp;
     }
     return *_instance;
