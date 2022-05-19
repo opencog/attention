@@ -45,15 +45,10 @@ AttentionBank::AttentionBank(AtomSpace* asp)
     maxAFSize = 100;
 
     _as = asp;
-    _remove_signal = &asp->atomRemovedSignal();
-    _remove_connection = _remove_signal->connect(
-            std::bind(&AttentionBank::remove_atom_from_bank, this,
-                std::placeholders::_1));
 }
 
 AttentionBank::~AttentionBank()
 {
-    _remove_signal->disconnect(_remove_connection);
 }
 
 void AttentionBank::remove_atom_from_bank(const AtomPtr& atom)

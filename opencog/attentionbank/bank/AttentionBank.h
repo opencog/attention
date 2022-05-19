@@ -72,9 +72,6 @@ class AttentionBank
     /** AV changes */
     void AVChanged(const Handle&, const AttentionValuePtr&, const AttentionValuePtr&);
 
-    AtomSignal* _remove_signal;
-    int _remove_connection;
-
     /**
      * Signal emitted when an atom crosses in or out of the
      * AttentionalFocus.
