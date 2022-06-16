@@ -10,10 +10,10 @@ DECLARE_GUILE_CONFIG_TARGET(SCM_CONFIG "opencog attention-config" "ATTENTION_TES
 #
 ADD_SUBDIRECTORY (attentionbank)
 
-IF (HAVE_COGSERVER)
-	# attention builds *after* cogserver.
-	ADD_SUBDIRECTORY (attention)
-ENDIF(HAVE_COGSERVER)
+#IF (HAVE_COGSERVER)
+#	# attention builds *after* cogserver.
+#	ADD_SUBDIRECTORY (attention)
+#ENDIF(HAVE_COGSERVER)
 
 WRITE_GUILE_CONFIG(${GUILE_BIN_DIR}/opencog/attention-config.scm SCM_CONFIG TRUE)
 WRITE_GUILE_CONFIG(${GUILE_BIN_DIR}/opencog/attention-config-installable.scm SCM_CONFIG FALSE)
