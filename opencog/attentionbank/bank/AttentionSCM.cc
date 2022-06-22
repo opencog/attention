@@ -99,21 +99,24 @@ ValuePtr AttentionSCM::get_av(const Handle& h)
 
 Handle AttentionSCM::set_av(const Handle& h, const ValuePtr& av)
 {
-	AtomSpace* atomspace = SchemeSmob::ss_get_env_as("cog-set-av!");
+	AtomSpacePtr asp = SchemeSmob::ss_get_env_as("cog-set-av!");
+	AtomSpace* atomspace = asp.get();
 	attentionbank(atomspace).change_av(h, AttentionValueCast(av));
 	return h;
 }
 
 Handle AttentionSCM::inc_vlti(const Handle& h)
 {
-	AtomSpace* atomspace = SchemeSmob::ss_get_env_as("cog-inc-vlti!");
+	AtomSpacePtr asp = SchemeSmob::ss_get_env_as("cog-inc-vlti!");
+	AtomSpace* atomspace = asp.get();
 	attentionbank(atomspace).inc_vlti(h);
 	return h;
 }
 
 Handle AttentionSCM::dec_vlti(const Handle& h)
 {
-	AtomSpace* atomspace = SchemeSmob::ss_get_env_as("cog-dec-vlti!");
+	AtomSpacePtr asp = SchemeSmob::ss_get_env_as("cog-dec-vlti!");
+	AtomSpace* atomspace = asp.get();
 	attentionbank(atomspace).dec_vlti(h);
 	return h;
 }
@@ -123,7 +126,8 @@ Handle AttentionSCM::dec_vlti(const Handle& h)
  **/
 int AttentionSCM::af_size(void)
 {
-	AtomSpace* atomspace = SchemeSmob::ss_get_env_as("cog-af-size");
+	AtomSpacePtr asp = SchemeSmob::ss_get_env_as("cog-af-size");
+	AtomSpace* atomspace = asp.get();
 	return attentionbank(atomspace).get_af_size();
 }
 
@@ -132,7 +136,8 @@ int AttentionSCM::af_size(void)
  */
 int AttentionSCM::set_af_size (int ssize)
 {
-	AtomSpace* atomspace = SchemeSmob::ss_get_env_as("cog-set-af-size!");
+	AtomSpacePtr asp = SchemeSmob::ss_get_env_as("cog-set-af-size!");
+	AtomSpace* atomspace = asp.get();
 
 	attentionbank(atomspace).set_af_size(ssize);
 	return attentionbank(atomspace).get_af_size();
@@ -147,7 +152,8 @@ Handle AttentionSCM::update_af(int n)
 {
 	HandleSeq attentionalFocus;
 
-	AtomSpace* atomspace = SchemeSmob::ss_get_env_as("cog-af");
+	AtomSpacePtr asp = SchemeSmob::ss_get_env_as("cog-af");
+	AtomSpace* atomspace = asp.get();
 
 	Handle af_anchor = atomspace->add_node(ANCHOR_NODE, "*-attentional-focus-boundary-*");
 	Handle af_key = atomspace->add_node(PREDICATE_NODE, "AttentionalFocus");
@@ -176,15 +182,15 @@ Handle AttentionSCM::update_af(int n)
  */
 Handle AttentionSCM::stimulate (const Handle& h, double stimulus)
 {
-	AtomSpace* atomspace = SchemeSmob::ss_get_env_as("cog-stimulate");
-	attentionbank(atomspace).stimulate(h, stimulus);
+	AtomSpacePtr atomspace = SchemeSmob::ss_get_env_as("cog-stimulate");
+	attentionbank(atomspace.get()).stimulate(h, stimulus);
 	return h;
 }
 
 Handle AttentionSCM::af_bindlink(const Handle& h)
 {
-	AtomSpace* atomspace = SchemeSmob::ss_get_env_as("cog-bind-af");
-	return opencog::af_bindlink(atomspace, h);
+	AtomSpacePtr atomspace = SchemeSmob::ss_get_env_as("cog-bind-af");
+	return opencog::af_bindlink(atomspace.get(), h);
 }
 
 extern "C" {
