@@ -11,19 +11,9 @@
 
 # We need at least version 3.13 to get TARGET_LINK_DIRECTORIES
 # Argh. circleci does not have that version.
-# Apparently, version 3.5 is what Ubuntu Xenial has, so ask for that.
+# CogUtils assks for version 3.12 already, so ask for that.
+CMAKE_MINIMUM_REQUIRED(VERSION 3.12)
 MESSAGE("Found CMake version ${CMAKE_VERSION}")
-CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
-
-# Well, that's weird. We need `CMP0037 OLD` as otherwise, cmake
-# version 3.10.2 complains :
-#   The target name "test" is reserved or not valid for certain CMake features,
-#      such as generator expressions, and may result in undefined behavior.
-# However, cmake version 3.13.4 does not complain about the "test"
-# target, and everything just works fine ...
-IF (NOT CMAKE_VERSION VERSION_GREATER 3.13)
-	CMAKE_POLICY(SET CMP0037 OLD)
-ENDIF (NOT CMAKE_VERSION VERSION_GREATER 3.13)
 
 PROJECT(attention)
 
@@ -234,11 +224,6 @@ IF (CXXTEST_FOUND)
 			COMMENT "Running tests..."
 		)
 	ENDIF (CMAKE_BUILD_TYPE STREQUAL "Coverage")
-
-	# When CMP00037 is finally turned off, just remove these two lines.
-	ADD_CUSTOM_TARGET(test)
-	ADD_DEPENDENCIES(test check)
-
 ENDIF (CXXTEST_FOUND)
 
 # ===================================================================
