@@ -171,9 +171,9 @@ IF (NOT DEFINED ATOMSPACE_DATA_DIR)
 	SET (ATOMSPACE_DATA_DIR "${COGUTIL_DATA_DIR}")
 ENDIF (NOT DEFINED ATOMSPACE_DATA_DIR)
 
-INCLUDE("${ATOMSPACE_DATA_DIR}/cmake/OpenCogMacros.cmake")
-INCLUDE("${ATOMSPACE_DATA_DIR}/cmake/OpenCogGuile.cmake")
-INCLUDE("${ATOMSPACE_DATA_DIR}/cmake/OpenCogCython.cmake")
+INCLUDE(OpenCogMacros)
+INCLUDE(OpenCogGuile)
+INCLUDE(OpenCogCython)
 
 # ==========================================================
 # Decide what to build, based on the packages found.
