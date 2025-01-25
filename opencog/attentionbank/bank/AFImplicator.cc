@@ -19,6 +19,7 @@
 
 #include <opencog/atoms/core/UnorderedLink.h>
 #include <opencog/atoms/pattern/BindLink.h>
+#include <opencog/atoms/value/QueueValue.h>
 #include "AFImplicator.h"
 
 using namespace opencog;
@@ -41,7 +42,8 @@ Handle af_bindlink(AtomSpace* as, const Handle& hbindlink)
 
 	// Now perform the search.
 	QueueValuePtr qvp(createQueueValue());
-	AFImplicator impl(as, qvp);
+	ContainerValuePtr cvp(qvp);
+	AFImplicator impl(as, cvp);
 	impl.implicand = bl->get_implicand();
 	impl.satisfy(bl);
 
