@@ -41,10 +41,10 @@ class AFImplicator:
 	public SatisfyMixin
 {
 	public:
-		AFImplicator(AtomSpace* asp) :
+		AFImplicator(AtomSpace* asp, QueueValuePtr qvp) :
 			AttentionalFocusCB(asp),
 			InitiateSearchMixin(asp),
-			RewriteMixin(asp)
+			RewriteMixin(asp, qvp)
 		{}
 
 	virtual void set_pattern(const Variables& vars,
