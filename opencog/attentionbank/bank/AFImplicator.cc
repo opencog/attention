@@ -44,7 +44,6 @@ Handle af_bindlink(AtomSpace* as, const Handle& hbindlink)
 	QueueValuePtr qvp(createQueueValue());
 	ContainerValuePtr cvp(qvp);
 	AFImplicator impl(as, cvp);
-	impl.implicand = bl->get_implicand();
 	impl.satisfy(bl);
 
 	// The result_list contains a list of the grounded expressions.
