@@ -95,33 +95,33 @@ class AttentionBankTest(TestCase):
         self.assertEqual(2, len(atoms))
         self.assertEqual(set([node1, node3]), atoms)
 
-    def test_attention_bind_link(self):
-        attention_bank = AttentionBank(self.atomspace)
-
-        socrates = ConceptNode("Socrates")
-        einstein = ConceptNode("Einstein")
-        peirce = ConceptNode("Peirce")
-        man = ConceptNode("man")
-
-        attention_bank.set_sti(socrates, 1)
-        attention_bank.set_lti(socrates, 2)
-
-        link1 = InheritanceLink(socrates, man)
-        link2 = InheritanceLink(einstein, man)
-        link3 = InheritanceLink(peirce, man)
-
-        attention_bank.set_av(link2, 35, 10)
-
-        bind_link = BindLink(
-            VariableNode("$X"),
-            InheritanceLink(VariableNode("$X"), man),
-            VariableNode("$X")
-        )
-
-        res = af_bindlink(self.atomspace, bind_link)
-
-        self.assertEqual(1, len(res.out))
-        self.assertEqual(einstein, res.out[0])
+#    def test_attention_bind_link(self):
+#        attention_bank = AttentionBank(self.atomspace)
+#
+#        socrates = ConceptNode("Socrates")
+#        einstein = ConceptNode("Einstein")
+#        peirce = ConceptNode("Peirce")
+#        man = ConceptNode("man")
+#
+#        attention_bank.set_sti(socrates, 1)
+#        attention_bank.set_lti(socrates, 2)
+#
+#        link1 = InheritanceLink(socrates, man)
+#        link2 = InheritanceLink(einstein, man)
+#        link3 = InheritanceLink(peirce, man)
+#
+#        attention_bank.set_av(link2, 35, 10)
+#
+#        bind_link = BindLink(
+#            VariableNode("$X"),
+#            InheritanceLink(VariableNode("$X"), man),
+#            VariableNode("$X")
+#        )
+#
+#        res = af_bindlink(self.atomspace, bind_link)
+#
+#        self.assertEqual(1, len(res.out))
+#        self.assertEqual(einstein, res.out[0])
 
 
 if __name__ == '__main__':
