@@ -154,7 +154,7 @@ Handle addRealAtom(AtomSpace& as, AtomPtr atom,
 
     Handle result;
     if (atom->is_node()) {
-        result = as.get_handle(atom->get_type(), atom->get_name());
+        result = as.xget_handle(atom->get_type(), atom->get_name());
         if (result == Handle::UNDEFINED) {
             Handle h = as.add_node(atom->get_type(),
                                   std::move(std::string(atom->get_name())));
@@ -162,7 +162,7 @@ Handle addRealAtom(AtomSpace& as, AtomPtr atom,
             return h;
         }
     } else {
-        result = as.get_handle(atom->get_type(), atom->getOutgoingSet());
+        result = as.xget_handle(atom->get_type(), atom->getOutgoingSet());
         if (result == Handle::UNDEFINED) {
             Handle h = as.add_link(atom->get_type(),
                              std::move(HandleSeq(atom->getOutgoingSet())));
@@ -388,8 +388,8 @@ public:
         }
         logger().debug("TVS checked\n");
 
-        TS_ASSERT(atomSpace->get_num_nodes() == NUM_NODES);
-        TS_ASSERT(atomSpace->get_num_links() == 8);
+        TS_ASSERT(atomSpace->get_num_atoms_of_type(NODE, true) == NUM_NODES);
+        TS_ASSERT(atomSpace->get_num_atoms_of_type(LINK, 8) == 8);
 
         HandleSeq hsn;
         atomSpace->get_handles_by_type(hsn, NODE, true);
@@ -738,10 +738,10 @@ public:
     void testGetHandle_bugfix1() {
         AtomSpace atomSpace;
         HandleSeq emptyOutgoing;
-        Handle result = atomSpace.get_handle(LIST_LINK, emptyOutgoing);
+        Handle result = atomSpace.xget_handle(LIST_LINK, emptyOutgoing);
         TS_ASSERT(result == Handle::UNDEFINED);
         atomSpace.add_link(LIST_LINK);
-        result = atomSpace.get_handle(LIST_LINK, emptyOutgoing);
+        result = atomSpace.xget_handle(LIST_LINK, emptyOutgoing);
         TS_ASSERT(result != Handle::UNDEFINED);
     }
 
