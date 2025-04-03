@@ -29,7 +29,7 @@ jobs:
           name: Checkout AtomSpace
           command: git clone --depth 1 https://github.com/$CIRCLE_PROJECT_USERNAME/atomspace /ws/atomspace
       - restore_cache:
-          name: Restore GCH Cache
+          name: Restore GHC Cache
           keys:
             - ghc-{{checksum "/ws/atomspace/opencog/haskell/stack.yaml"}}-{{ arch }}
       - restore_cache:
@@ -66,6 +66,12 @@ jobs:
             mkdir -p /ws/cogserver/build
             cd /ws/cogserver/build && cmake .. && make -j2 && make -j2 install
             ldconfig
+		# wtf. Keep getting this error message:
+		# Either git or ssh (required by git to clone through SSH) is Not Installed in the Image
+		- run: git --version
+		- run: ssh -V
+		- run: apt-get update && apt-get install -y openssh-client git
+		- run: ssh -V
       - checkout
       - run:
           name: CMake Configure
@@ -107,7 +113,7 @@ jobs:
       - attach_workspace:
           at: /ws/
       - restore_cache:
-          name: Restore GCH Cache
+          name: Restore GHC Cache
           keys:
             - ghc-{{checksum "/ws/atomspace/opencog/haskell/stack.yaml"}}-{{ arch }}
       - restore_cache:
