@@ -69,8 +69,7 @@ jobs:
       # wtf. Keep getting this error message:
       # Either git or ssh (required by git to clone through SSH) is Not Installed in the Image
       - run: git --version
-      - run: ssh -V
-      - run: apt-get update && apt-get install -y openssh-client git
+      - run: apt-get update && apt-get install -y openssh-client
       - run: ssh -V
       - checkout
       - run:
