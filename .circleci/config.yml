@@ -71,6 +71,7 @@ jobs:
       - run: git --version
       - run: apt-get update && apt-get install -y openssh-client
       - run: ssh -V
+      - run: cd /ws/attention
       - checkout
       - run:
           name: CMake Configure
