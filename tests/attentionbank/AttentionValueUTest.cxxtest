@@ -272,10 +272,10 @@ public:
         baseNameLength = strlen(baseName);
         strcpy(buf, baseName);
 
-        TruthValuePtr tv1 = SimpleTruthValue::createTV(0.001f, 0.00001f);
-        TruthValuePtr tv2 = SimpleTruthValue::createTV(0.05f, 0.005f);
-        TruthValuePtr tv3 = SimpleTruthValue::createTV(0.05f, 0.005f);
-        TruthValuePtr tv4 = SimpleTruthValue::createTV(0.5f, 0.05f);
+        TruthValuePtr tv1 = createSimpleTruthValue(0.001f, 0.00001f);
+        TruthValuePtr tv2 = createSimpleTruthValue(0.05f, 0.005f);
+        TruthValuePtr tv3 = createSimpleTruthValue(0.05f, 0.005f);
+        TruthValuePtr tv4 = createSimpleTruthValue(0.5f, 0.05f);
         buf[baseNameLength] = '1';
         Handle h1 = atomSpace->add_node(CONCEPT_NODE, buf);
         h1->setTruthValue(tv1);
