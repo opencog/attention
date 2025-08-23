@@ -170,9 +170,7 @@ Handle addRealAtom(AtomSpace& as, AtomPtr atom,
             return h;
         }
     }
-    TruthValuePtr currentTV = result->getTruthValue();
-    TruthValuePtr mergedTV = currentTV->merge(newTV);
-    result->setTruthValue(mergedTV);
+    result->setTruthValue(newTV);
     return result;
 }
 
@@ -604,13 +602,10 @@ public:
         TruthValuePtr tv2_ = createSimpleTruthValue(0.1f, 0.0f);
         TruthValuePtr tv3_ = createSimpleTruthValue(0.6f, 0.90f);
         Handle h1_ = atomSpace->add_node(PREDICATE_NODE, "barkingAt");
-        tv1->merge(tv1_);
         h1_->setTruthValue(tv1);
         Handle h2_ = atomSpace->add_node(CONCEPT_NODE, "dog1");
-        tv2->merge(tv2_);
         h2_->setTruthValue(tv2);
         Handle h3_ = atomSpace->add_node(CONCEPT_NODE, "tree");
-        tv3->merge(tv3_);
         h3_->setTruthValue(tv3);
 
         TS_ASSERT(h1 == h1_);
@@ -692,20 +687,18 @@ public:
         // Check that isLink returns true
         TS_ASSERT(isLink(l2));
 
-        TruthValuePtr tv1_ = createSimpleTruthValue(0.002f, 0.00002f);
+        tv1 = createSimpleTruthValue(0.002f, 0.00002f);
         Handle l1_ = atomSpace->add_link(LIST_LINK, h2, h3);
-        tv1->merge(tv1_);
         l1_->setTruthValue(tv1);
 
-        TruthValuePtr tv2_ = createSimpleTruthValue(0.1f, 0.0f);
+        tv2 = createSimpleTruthValue(0.1f, 0.0f);
         Handle l2_ = atomSpace->add_link(EVALUATION_LINK, h1, l1);
-        tv2->merge(tv2_);
         l2_->setTruthValue(tv2);
 
         TS_ASSERT(l1 == l1_);
         TruthValuePtr l1tv = l1->getTruthValue();
-        TS_ASSERT(l1tv->get_mean() - tv1_->get_mean() < FLOAT_ACCEPTABLE_ERROR);
-        TS_ASSERT(l1tv->get_count() - tv1_->get_count() < FLOAT_ACCEPTABLE_ERROR);
+        TS_ASSERT(l1tv->get_mean() - tv1->get_mean() < FLOAT_ACCEPTABLE_ERROR);
+        TS_ASSERT(l1tv->get_count() - tv1->get_count() < FLOAT_ACCEPTABLE_ERROR);
         TS_ASSERT(l2 == l2_);
         TruthValuePtr l2tv = l2->getTruthValue();
         TS_ASSERT(l2tv->get_mean() - tv2->get_mean() < FLOAT_ACCEPTABLE_ERROR);
