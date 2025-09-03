@@ -32,7 +32,6 @@
 #include <opencog/atoms/truthvalue/SimpleTruthValue.h>
 #include <opencog/util/Logger.h>
 
-#include "makeVirtualAtom.h"
 #include "sorting.h"
 
 using namespace opencog;
@@ -471,108 +470,6 @@ public:
             //logger().debug("6) partOfLinks.size() = %d\n", partOfLinks.size());
             TS_ASSERT(partOfLinks.size() == 4);
         }
-    }
-
-
-    static inline Handle addAtomIter(AtomSpace& as, tree<Vertex>& a, tree<Vertex>::iterator it, TruthValuePtr tvn)
-    {
-        Handle* head_handle_ptr = boost::get<Handle>(&(*it));
-        Type* head_type_ptr = boost::get<Type>(&(*it));
-        OC_ASSERT((head_handle_ptr != NULL) ^ (head_type_ptr != NULL), "addAtom(): Vertex should be of 'Handle' or 'Type' type.");
-
-        HandleSeq handles;
-
-        if (head_handle_ptr != NULL) {
-            // OC_ASSERT(as.holds(*head_handle_ptr), "head_handle_ptr is not valid");
-            Handle h = addRealAtom(as, *head_handle_ptr);
-            h->setTruthValue(tvn);
-            return h;
-        }
-
-        for (tree<Vertex>::sibling_iterator i = a.begin(it); i != a.end(it); i++) {
-            Handle *h_ptr = boost::get<Handle>(&*i);
-
-            if (h_ptr) {
-                handles.push_back(addRealAtom(as, *h_ptr));
-            } else {
-                handles.push_back(addAtomIter(as, a, i, TruthValue::TRIVIAL_TV()));
-            }
-        }
-
-        Handle h = as.add_link(*head_type_ptr, std::move(handles));
-        h->setTruthValue(tvn);
-        return h;
-    }
-
-    static inline Handle addAtom(AtomSpace& as, tree<Vertex>& a, TruthValuePtr tvn)
-    {
-        return addAtomIter(as, a, a.begin(), tvn);
-    }
-
-    /**
-     * Method tested:
-     *
-     * Add a new atom represented by a tree of Vertex to the Atom Table
-     * @param the tree of Vertex representation of the atom to be added
-     * @param the TruthValue object to be associated to the added atom
-     * @param a flag to indicate if it does not need to check for already existing atoms in AtomTable.
-     * @param managed ???
-     *
-     * virtual Handle addAtom(tree<Vertex>& a, const TruthValue& tvn, bool fresh=false, bool managed=true);
-     */
-#define mva makeVirtualAtom
-    void testAddAtomVtreeTruthValueBool()
-    {
-        Handle h1 = atomSpace->add_node(PREDICATE_NODE, "barkingAt");
-        h1->setTruthValue(createSimpleTruthValue(0.001f, 0.00001f));
-        Handle h2 = atomSpace->add_node(CONCEPT_NODE, "dog1");
-        h2->setTruthValue(createSimpleTruthValue(0.001f, 0.00001f));
-        Handle h3 = atomSpace->add_node(CONCEPT_NODE, "tree");
-        h3->setTruthValue(createSimpleTruthValue(0.5f, 0.99f));
-
-
-        tree<Vertex>* tr = mva(EVALUATION_LINK,
-                               mva(h1, NULL),
-                               mva(LIST_LINK,
-                                   mva(h2, NULL),
-                                   mva(h3, NULL),
-                                   NULL
-                                  ) ,
-                               NULL
-                              );
-
-        HandleSeq links;
-        atomSpace->get_handles_by_type(links, LINK, true);
-        logger().debug("links.size() = %d\n", (int) links.size());
-        TS_ASSERT(links.size() == 0);
-        Handle evalLink = addAtom(*atomSpace, *tr, TruthValue::DEFAULT_TV());
-        TS_ASSERT(evalLink != Handle::UNDEFINED);
-        links.clear();
-        atomSpace->get_handles_by_type(links, LINK, true);
-        logger().debug("links.size() = %d\n", (int) links.size());
-        TS_ASSERT(links.size() == 2);
-        delete tr;
-
-        Handle hn = atomSpace->add_node(PREDICATE_NODE, "barkingAt");
-        tr = mva(hn, NULL);
-        Handle h1_ = addAtom(*atomSpace, *tr, createSimpleTruthValue(0.5f, 0.5f));
-        TS_ASSERT(h1_ != Handle::UNDEFINED);
-        // In this case, the expected behavior is to perform a merge and return the
-        // handle was inserted previously.
-        TS_ASSERT(h1_ == h1);
-        AtomPtr atom(h1_);
-        TS_ASSERT(atom->getTruthValue()->get_mean() - 0.5f < FLOAT_ACCEPTABLE_ERROR);
-        delete tr;
-
-        tr = mva(evalLink, NULL);
-        Handle evalLink_ = addAtom(*atomSpace, *tr, createSimpleTruthValue(0.5f, 0.5f));
-        TS_ASSERT(evalLink_ != Handle::UNDEFINED);
-        // In this case, the expected behavior is to perform a merge and return the
-        // handle was inserted previously.
-        TS_ASSERT(evalLink_ == evalLink);
-        atom = evalLink_;
-        TS_ASSERT(atom->getTruthValue()->get_mean() - 0.5f < FLOAT_ACCEPTABLE_ERROR);
-        delete tr;
     }
 
     /**
