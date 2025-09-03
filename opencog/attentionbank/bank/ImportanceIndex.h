@@ -2,6 +2,7 @@
  * opencog/attentionbank/ImportanceIndex.h
  *
  * Copyright (C) 2008-2011 OpenCog Foundation
+ * Copyright (C) 2008 Joel Pitt <joel@fruitionnz.com>
  * Copyright (C) 2017 Linas Vepstas <linasvepstas@gmail.com>
  * All Rights Reserved
  *
@@ -25,7 +26,6 @@
 #define _OPENCOG_IMPORTANCEINDEX_H
 
 #include <mutex>
-#include <opencog/util/recent_val.h>
 
 #include <opencog/attentionbank/avalue/AttentionValue.h>
 #include <opencog/attentionbank/bank/AtomBins.h>
@@ -36,6 +36,31 @@ namespace opencog
 /** \addtogroup grp_atomspace
  *  @{
  */
+
+//! recent_val is a value that can update which also
+//! keeps a exponential decaying record of it's recent value
+template<class ValueType> struct recent_val {
+    //! The current value
+    ValueType val;
+    //! The recent record of the value
+    float recent;
+    //! The decay rate of the recent value
+    float decay;
+
+    //! constructor with initial value
+    recent_val(ValueType x): val(x), recent((float)x), decay(0.5f) {}
+    //! constructor with 0 as initial value
+    recent_val(): val(0), recent(0.0f), decay(0.5f) {}
+
+    //! update the current value and the decaying record
+    /**
+     * \param x the new value
+     */
+    inline void update(ValueType x) {
+        val = x;
+        recent = ((decay) * val) + ((1.0f - decay) * recent);
+    }
+};
 
 /**
  * Implements an index with additional routines needed for managing
@@ -131,9 +156,9 @@ public:
      * Get the lowest bin which contains Atoms
      */
     UnorderedHandleSet getMinBinContents();
-    
+
     size_t bin_size(void) const;
-    
+
     /**
      * Get the size of the bin at the given index.
      */
