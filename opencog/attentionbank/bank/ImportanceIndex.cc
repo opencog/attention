@@ -24,8 +24,10 @@
 #include <cassert>
 #include <cmath>
 #include <algorithm>
-
-#include <opencog/util/functional.h>
+#include <functional>
+#include <boost/iterator/counting_iterator.hpp>
+#include <boost/iterator/transform_iterator.hpp>
+#include <boost/operators.hpp>
 
 #include <opencog/attentionbank/bank/AVUtils.h>
 #include <opencog/attentionbank/bank/ImportanceIndex.h>
@@ -46,6 +48,25 @@ using namespace opencog;
 #define GROUP_NUM 12
 #define IMPORTANCE_INDEX_SIZE (GROUP_NUM*GROUP_SIZE)+GROUP_NUM //104
 
+//! an output iterator that inserts into a container (without a hint)
+template<typename Container>
+struct insert_output_iterator :
+            boost::output_iterator_helper<insert_output_iterator<Container> > {
+public:
+    insert_output_iterator(Container& c) : _c(c) { }
+
+    template<typename T>
+    insert_output_iterator& operator=(const T& t) {
+        _c.insert(t); return *this;
+    }
+private:
+    Container& _c;
+};
+template<typename Container>
+insert_output_iterator<Container> inserter(Container& c)
+{
+    return   insert_output_iterator<Container>(c);
+}
 // ==============================================================
 
 ImportanceIndex::ImportanceIndex()
