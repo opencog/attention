@@ -109,29 +109,13 @@ SET(Boost_USE_MULTITHREADED ON)
 SET(MIN_BOOST 1.46)
 
 # Required boost packages
-FIND_PACKAGE(Boost ${MIN_BOOST} REQUIRED)
+FIND_PACKAGE(Boost CONFIG)
 
 IF(Boost_FOUND)
-	SET(Boost_FOUND_SAVE 1)
+	MESSAGE(STATUS "Boost version ${Boost_VERSION} found.")
 ELSE(Boost_FOUND)
 	MESSAGE(FATAL_ERROR "Boost ${MIN_BOOST} or newer is needed to build OpenCog!")
 ENDIF(Boost_FOUND)
-
-# Opencog won't compile with Boost 1.51, some kind of conflict with
-# hash functions, see github bugs 1 and 36
-IF(105100 EQUAL ${Boost_VERSION})
-	MESSAGE(FATAL_ERROR "Boost version 1.51 will not work with OpenCog.  Please use a different version.")
-ENDIF(105100 EQUAL ${Boost_VERSION})
-MESSAGE(STATUS "Boost version ${Boost_VERSION} found.")
-
-# Optional boost packages; can build without these.
-# Is this actually needed?
-FIND_PACKAGE(Boost ${MIN_BOOST} COMPONENTS python QUIET)
-
-# Arghhh. Except cmake is treating above as required, not optional. #$%**&
-IF(Boost_FOUND_SAVE)
-	SET(Boost_FOUND 1)
-ENDIF(Boost_FOUND_SAVE)
 
 # ----------------------------------------------------------
 # Needed for unit tests
