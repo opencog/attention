@@ -15,6 +15,11 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.12)
 MESSAGE("Found CMake version ${CMAKE_VERSION}")
 
+# Python venv seems to need this.
+IF(CMAKE_VERSION VERSION_GREATER 3.31)
+   CMAKE_POLICY(SET CMP0177 NEW)
+ENDIF(CMAKE_VERSION VERSION_GREATER 3.31)
+
 PROJECT(attention)
 
 # ----------------------------------------------------------
