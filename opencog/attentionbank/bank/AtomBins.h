@@ -23,10 +23,11 @@
 #ifndef _OPENCOG_ATOM_BINS_H
 #define _OPENCOG_ATOM_BINS_H
 
-#include <vector>
-#include <mutex>
+#include <algorithm>
 #include <atomic>
 #include <memory>
+#include <mutex>
+#include <vector>
 
 #include <opencog/atoms/base/Handle.h>
 
