@@ -64,7 +64,7 @@ static inline AttentionValueOfLinkPtr AttentionValueOfLinkCast(AtomPtr a)
 class StiOfLink : public ValueOfLink
 {
 public:
-	StiOfLink(const HandleSeq&&, Type=STRENGTH_OF_LINK);
+	StiOfLink(const HandleSeq&&, Type=STI_OF_LINK);
 	StiOfLink(const StiOfLink&) = delete;
 	StiOfLink& operator=(const StiOfLink&) = delete;
 
@@ -90,7 +90,7 @@ static inline StiOfLinkPtr StiOfLinkCast(AtomPtr a)
 class LtiOfLink : public ValueOfLink
 {
 public:
-	LtiOfLink(const HandleSeq&&, Type=CONFIDENCE_OF_LINK);
+	LtiOfLink(const HandleSeq&&, Type=LTI_OF_LINK);
 	LtiOfLink(const LtiOfLink&) = delete;
 	LtiOfLink& operator=(const LtiOfLink&) = delete;
 
