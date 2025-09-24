@@ -156,6 +156,6 @@ void HebbianCreationAgent::run()
 void HebbianCreationAgent::addHebbian(Handle source,Handle target)
 {
     Handle link = _as->add_link(ASYMMETRIC_HEBBIAN_LINK, source, target);
-    link->setTruthValue(SimpleTruthValue::createTV(0.5, 0.1));
+    link->setValue(truth_key(), SimpleTruthValue::createTV(0.5, 0.1));
     _bank->inc_vlti(link);
 }

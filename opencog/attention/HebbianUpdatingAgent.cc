@@ -108,13 +108,14 @@ void HebbianUpdatingAgent::updateHebbianLinks(Handle source)
         new_tc = targetConjunction(outgoing);
 
         // old link strength decays
-        TruthValuePtr oldtv  = h->getTruthValue();
+        TruthValuePtr oldtv  = TruthValueCast(h->getValue(truth_key()));
         old_tc = oldtv->get_mean();
         tc = tcDecayRate * new_tc + (1.0 - tcDecayRate) * old_tc;
 
         //update truth value accordingly
-        TruthValuePtr newtv = SimpleTruthValue::createTV(tc, 0.1);
-        h->setTruthValue(h->getTruthValue()->merge(newtv));
+        // TruthValuePtr newtv = SimpleTruthValue::createTV(tc, 0.1);
+        // h->setValue(truth_key(), h->getValue(truth_key())->merge(newtv));
+        // merge does not exist any longer.
     }
 }
 

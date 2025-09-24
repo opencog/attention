@@ -278,22 +278,22 @@ public:
         TruthValuePtr tv4 = createSimpleTruthValue(0.5f, 0.05f);
         buf[baseNameLength] = '1';
         Handle h1 = atomSpace->add_node(CONCEPT_NODE, buf);
-        h1->setTruthValue(tv1);
+        h1->setValue(truth_key(), tv1);
         setSTI(h1, 0);
         setLTI(h1, 300);
         buf[baseNameLength] = '2';
         Handle h2 = atomSpace->add_node(CONCEPT_NODE, buf);
-        h2->setTruthValue(tv2);
+        h2->setValue(truth_key(), tv2);
         setSTI(h2, 500);
         setLTI(h2, 7000);
         buf[baseNameLength] = '3';
         Handle h3 = atomSpace->add_node(CONCEPT_NODE, buf);
-        h3->setTruthValue(tv3);
+        h3->setValue(truth_key(), tv3);
         setSTI(h3, 500);
         setLTI(h3, 7000);
         buf[baseNameLength] = '4';
         Handle h4 = atomSpace->add_node(CONCEPT_NODE, buf);
-        h4->setTruthValue(tv4);
+        h4->setValue(truth_key(), tv4);
         setSTI(h4, 500);
         setLTI(h4, 20000);
 
